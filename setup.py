@@ -6,8 +6,8 @@ use_setuptools()
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.0"
-    with open("README") as summary:
+    RELEASE = "1.1"
+    with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
     CLASSIFIERS = [
         'Development Status :: 4 - Beta',
@@ -26,7 +26,7 @@ if __name__ == '__main__':
           description='Analysis of spin label distances over structural ensembles',
           author='Philip W. Fowler',
           author_email='philip.fowler@bioch.ox.ac.uk',
-          url='http://mdanalysis.googlecode.com/',
+          url='https://github.com/MDAnalysis/RotamerConvolveMD',
           requires=['numpy (>=1.6)', 'MDAnalysis (>0.7.7)'],
           provides=['rotcon'],
           license='GPL 2',
