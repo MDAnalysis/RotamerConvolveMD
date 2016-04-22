@@ -27,7 +27,7 @@ if __name__ == '__main__':
           author='Philip W. Fowler',
           author_email='philip.fowler@bioch.ox.ac.uk',
           url='https://github.com/MDAnalysis/RotamerConvolveMD',
-          requires=['numpy (>=1.6)', 'MDAnalysis (>0.7.7, <0.11.0)'],
+          requires=['numpy (>=1.6)', 'MDAnalysis (>=0.11.0)'],
           provides=['rotcon'],
           license='GPL 2',
           packages=find_packages(exclude=['scripts', 'rotcon/data']),

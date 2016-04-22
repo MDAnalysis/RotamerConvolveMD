@@ -10,18 +10,16 @@
 
 import MDAnalysis
 import MDAnalysis.analysis.align
-import MDAnalysis.KDTree.NeighborSearch as KDNS
-from MDAnalysis.core.distances import distance_array
+import MDAnalysis.lib.NeighborSearch as KDNS
 import MDAnalysis.analysis.distances
 
 import numpy as np
 import os.path
 
+import rotcon.library
+
 import logging
 logger = logging.getLogger("MDAnalysis.app")
-
-
-import rotcon.library
 
 
 def rms_fit_trj(*args, **kwargs):
@@ -94,7 +92,7 @@ class RotamerDistances(object):
                      "(only last frame of MD trajectory): {0[0]} and {0[1]}".format(tmptrj))
         logger.debug("Results will be written to {0}.".format(self.outputFile))
 
-        progressmeter = MDAnalysis.core.log.ProgressMeter(proteinStructure.trajectory.numframes, interval=1)
+        progressmeter = MDAnalysis.log.ProgressMeter(proteinStructure.trajectory.n_frames, interval=1)
         for protein in proteinStructure.trajectory:
             progressmeter.echo(protein.frame)
             if protein.frame < kwargs['discardFrames']:
@@ -144,7 +142,7 @@ class RotamerDistances(object):
         # calculate Nbins and min and max so that we cover at least
         # the requested lower and upper bounds with the given fixed
         # bin width
-        bins = MDAnalysis.core.util.fixedwidth_bins(histogramBins[2], histogramBins[0], histogramBins[1])
+        bins = MDAnalysis.lib.util.fixedwidth_bins(histogramBins[2], histogramBins[0], histogramBins[1])
         # use numpy to histogram the distance data, weighted appropriately
         (a, b) = np.histogram(distances, weights=weights, density=True, bins=bins['Nbins'],
                               range=(bins['min'], bins['max']))
@@ -207,7 +205,7 @@ class RotamerDistances(object):
         rotamer_clash = [True]
         rotamer_clash_counter = 0
         for rotamer in fitted_rotamers.trajectory:
-            bumps = proteinNotSiteLookup.search_list(rotamerSel, self.clashDistance)
+            bumps = proteinNotSiteLookup.search(rotamerSel, self.clashDistance)
             if bumps:
                 rotamer_clash.append(True)
                 rotamer_clash_counter += 1
