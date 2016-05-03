@@ -9,9 +9,17 @@ if [ "`which convolve-mtss-rotamers.py`" = "" ]; then
     echo "Install the package first with 'python setip.py install --user' from the top dir"
     exit 2
 fi
-convolve-mtss-rotamers.py --resid 47 330  --histogramBins 0 80 1  --clashDistance 2.2  \
-          --output "dat/peptso-xrd"  --dcdfilename "dcd/peptso-xrd-47-330" \
-          peptso.gro 
+
+convolve-mtss-rotamers.py \
+    --resid 47 330  \
+    --histogramBins 0 80 1  \
+    --clashDistance 2.2  \
+    --outputHistogram "dat/peptso-xrd" \
+    --plotname "dat/peptso-xrd.pdf" \
+    --outputRawDistances "dat/peptso-xrd-RawDistances" \
+    --dcdfilenameAll "dcd/peptso-xrd-47-330" \
+    --dcdfilenameNoClashes "dcd/peptso-xrd-47-330" \
+    peptso.gro 
 
 diff reference/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
 test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."

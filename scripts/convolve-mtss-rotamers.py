@@ -47,11 +47,17 @@ if __name__ == "__main__":
         parser.add_option("--clashDistance", dest="clashDistance", type=float, default=2.2,
                           help="the distance between heavy-atoms of the label and protein within which "
                                "they are assumed to be clashing [%default Angstroms]")
-        parser.add_option("--output", dest="outputFile", default="output.dat",
+        parser.add_option("--outputHistogram", dest="outputFileHistogram", default="output.dat",
                           help="the path and name of the output histogram file; the filename will "
                                "have resid 1 and resid 2 inserted before the extension [%default]")
-        parser.add_option("--dcdfilename", dest="dcdFilename", metavar="FILENAME",
+        parser.add_option("--outputRawDistances", dest="outputFileRawDistances", default="outputRawDistances.dat",
+                          help="the path and name of the output file with raw distances; the filename will "
+                               "have resid 1 and resid 2 inserted before the extension [%default]")
+        parser.add_option("--dcdfilenameAll", dest="dcdFilenameAll", metavar="FILENAME",
                           help="the path and stem of the DCD files of the fitted MTSS rotamers")
+        parser.add_option("--dcdfilenameNoClashes", dest="dcdFilenameNoClashes", metavar="FILENAME",
+                          help="the path and stem of the DCD files of the fitted MTSS rotamers "
+                               " without clashes")
         parser.add_option("--libname", dest="libname", metavar="NAME", default="MTSSL 298K",
                           help="name of the rotamer library [%default]")
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
@@ -78,13 +84,16 @@ if __name__ == "__main__":
 
         logger.info("Loading trajectory data as Universe({0})".format(*args))
 
-        if not options.dcdFilename:
-                options.dcdFilename = options.outputFile + "-tmp"
+        if not options.dcdFilenameAll:
+                options.dcdFilenameAll = options.outputFileHistogram + "-tmp"
 
         startTime = time.time()
         R = rotcon.convolve.RotamerDistances(proteinStructure,
                                              options.residues,
-                                             outputFile=options.outputFile, dcdFilename=options.dcdFilename,
+                                             outputFileHistogram=options.outputFileHistogram, 
+                                             outputFileRawDistances=options.outputFileRawDistances, 
+                                             dcdFilenameAll=options.dcdFilenameAll,
+                                             dcdFilenameNoClashes=options.dcdFilenameNoClashes,
                                              libname=options.libname, discardFrames=options.discardFrames,
                                              clashDistance=options.clashDistance,
                                              histogramBins=options.histogramBins)

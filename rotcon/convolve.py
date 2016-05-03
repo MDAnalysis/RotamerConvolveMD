@@ -41,11 +41,17 @@ class RotamerDistances(object):
               the labelled sites
 
         :Keywords:
-           *dcdFilename*
+           *dcdFilenameAll*
               name of the temporary files with rotamers fitted [``'trj'``]
-           *outputFile*
+           *dcdFilenameNoClashes*
+              name of the temporary files with rotamers fitted [``'trj'``]
+           *outputFileHistogram*
               stem of the name of the file containing the distance histogram
               (the final name will be ``<outputFile><resid_1>-<resid_2>.dat``
+              [``'distances'``]
+           *outputFileRawDistances*
+              stem of the name of the file containing the raw distances
+              (the final name will be ``<outputFile><resid_1>-<resid_2>_distances.dat``
               [``'distances'``]
            *libname*
               library name; the library is loaded with
@@ -65,15 +71,27 @@ class RotamerDistances(object):
             raise ValueError("The residue_list must contain exactly 2 residue numbers: current "
                              "value {0}.".format(residues))
 
-        outputFile, ext = os.path.splitext(kwargs.pop('outputFile', 'distances'))
+        outputFileHistogram, ext = os.path.splitext(kwargs.pop('outputFileHistogram', 'distances'))
         ext = ext or ".dat"
-        self.outputFile = "{0}-{1[0]}-{1[1]}{2}".format(outputFile, residues, ext)
+        self.outputFileHistogram = "{0}-{1[0]}-{1[1]}{2}".format(outputFileHistogram, residues, ext)
 
-        dcdFilename, ext = os.path.splitext(kwargs.pop('dcdFilename', 'trj'))
+        outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
+        ext = ext or ".dat"
+        self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}{2}".format(outputFileRawDistances, residues, ext)
+        
+        
+        dcdFilenameAll, ext = os.path.splitext(kwargs.pop('dcdFilenameAll', 'trj'))
         ext = ext or ".dcd"
-        tmptrj = ["{0}-1{1}".format(dcdFilename, ext),  # or make this temp files?
-                  "{0}-2{1}".format(dcdFilename, ext),  # or make this temp files?
+        tmptrj = ["{0}-1{1}".format(dcdFilenameAll, ext),  # or make this temp files?
+                  "{0}-2{1}".format(dcdFilenameAll, ext),  # or make this temp files?
                   ]
+        
+        dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))
+        ext = ext or ".dcd"
+        tmptrjNoClashes = ["{0}-rawDistances-1{1}".format(dcdFilenameNoClashes, ext),  # or make this temp files?
+                           "{0}-rawDistances-2{1}".format(dcdFilenameNoClashes, ext),  # or make this temp files?
+                          ]
+
 
         kwargs.setdefault('discardFrames', 0)
         self.clashDistance = kwargs.pop('clashDistance', 2.2)  # Ångström
@@ -90,7 +108,7 @@ class RotamerDistances(object):
         logger.info("clashDistance = {0} A; rotamer library = '{1}'".format(self.clashDistance, self.lib.name))
         logger.debug("Temporary trajectories for rotamers 1 and 2 "
                      "(only last frame of MD trajectory): {0[0]} and {0[1]}".format(tmptrj))
-        logger.debug("Results will be written to {0}.".format(self.outputFile))
+        logger.debug("Results will be written to {0}.".format(self.outputFileHistogram))
 
         progressmeter = MDAnalysis.log.ProgressMeter(proteinStructure.trajectory.n_frames, interval=1)
         for protein in proteinStructure.trajectory:
@@ -114,8 +132,12 @@ class RotamerDistances(object):
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
             rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
 
-            with MDAnalysis.Writer("sit1.pdb", rotamersSite1.n_atoms) as S1:
-                with MDAnalysis.Writer("sit2.pdb", rotamersSite2.n_atoms) as S2:
+            # define the atoms to measure the distances between
+            rotamer1All = rotamersSite1.select_atoms("all")
+            rotamer2All = rotamersSite2.select_atoms("all")
+            
+            with MDAnalysis.Writer("{}".format(tmptrjNoClashes[0]), rotamer1All.n_atoms) as S1:
+                with MDAnalysis.Writer("{}".format(tmptrjNoClashes[1]), rotamer2All.n_atoms) as S2:
                     # loop over all the rotamers on the first site
                     for rotamer1 in rotamersSite1.trajectory:
                         if not rotamer1_clash[rotamer1.frame]:
@@ -148,11 +170,16 @@ class RotamerDistances(object):
         (a, b) = np.histogram(distances, weights=weights, density=True, bins=bins['Nbins'],
                               range=(bins['min'], bins['max']))
 
-        with open(self.outputFile, 'w') as OUTPUT:
+        with open(self.outputFileHistogram, 'w') as OUTPUT:
             for (i, j) in enumerate(a):
                 OUTPUT.write("%6.2f %8.3e\n" % ((0.5*(b[i] + b[i+1])), j))
         logger.info("Distance distribution for residues {0[0]} - {0[1]} "
-                    "was written to {1}".format(residues, self.outputFile))
+                    "was written to {1}".format(residues, self.outputFileHistogram))
+        
+        with open(self.outputFileRawDistances, 'w') as OUTPUT:
+            for distance in distances:
+                OUTPUT.write("%8.3e\n" % (distance))
+
 
     def plot(self, **kwargs):
         """Load data file and plot"""
@@ -165,7 +192,7 @@ class RotamerDistances(object):
         if ax is None:
             ax = fig.add_subplot(111)
 
-        dist, prob = np.loadtxt(self.outputFile, unpack=True)
+        dist, prob = np.loadtxt(self.outputFileHistogram, unpack=True)
         ax.plot(dist, prob, **kwargs)
         ax.set_xlabel(r"spin-label distance $d$ ($\AA$)")
         ax.set_ylabel("probability density")
