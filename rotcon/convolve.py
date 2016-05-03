@@ -114,22 +114,26 @@ class RotamerDistances(object):
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
             rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
 
-            # loop over all the rotamers on the first site
-            for rotamer1 in rotamersSite1.trajectory:
-                if not rotamer1_clash[rotamer1.frame]:
-                    # loop over all the rotamers on the second site
-                    for rotamer2 in rotamersSite2.trajectory:
-                        if not rotamer2_clash[rotamer2.frame]:
-                            # measure and record the distance
-                            (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
-                            distances.append(distance[0])
-                            # create the weights list
-                            try:
-                                weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
-                            except IndexError:
-                                logger.error("oppps: no weights for rotamer 1 #{0} - "
-                                             "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
-                            weights.append(weight)
+            with MDAnalysis.Writer("sit1.pdb", rotamersSite1.n_atoms) as S1:
+                with MDAnalysis.Writer("sit2.pdb", rotamersSite2.n_atoms) as S2:
+                    # loop over all the rotamers on the first site
+                    for rotamer1 in rotamersSite1.trajectory:
+                        if not rotamer1_clash[rotamer1.frame]:
+                            # loop over all the rotamers on the second site
+                            for rotamer2 in rotamersSite2.trajectory:
+                                if not rotamer2_clash[rotamer2.frame]:
+                                    S1.write(rotamersSite1.atoms)
+                                    S2.write(rotamersSite2.atoms)
+                                    # measure and record the distance
+                                    (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
+                                    distances.append(distance[0])
+                                    # create the weights list
+                                    try:
+                                        weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
+                                    except IndexError:
+                                        logger.error("oppps: no weights for rotamer 1 #{0} - "
+                                                    "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
+                                    weights.append(weight)
 
         # check that at least two distances have been measured
         if len(distances) < 2:
