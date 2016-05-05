@@ -25,7 +25,7 @@ if __name__ == '__main__':
           version=RELEASE,
           description='Analysis of spin label distances over structural ensembles',
           author='Philip W. Fowler',
-          author_email='philip.fowler@bioch.ox.ac.uk',
+          author_email='philip.fowler@ndm.ox.ac.uk',
           url='https://github.com/MDAnalysis/RotamerConvolveMD',
           requires=['numpy (>=1.6)', 'MDAnalysis (>0.7.7, <0.11.0)'],
           provides=['rotcon'],
