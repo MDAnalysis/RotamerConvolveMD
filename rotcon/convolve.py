@@ -116,19 +116,16 @@ class RotamerDistances(object):
 
             # loop over all the rotamers on the first site
             for rotamer1 in rotamersSite1.trajectory:
-                # only proceed if it isn't the PDB frame and there is no clash
-                if rotamer1.frame > 1 and not rotamer1_clash[rotamer1.frame]:
+                if not rotamer1_clash[rotamer1.frame]:
                     # loop over all the rotamers on the second site
                     for rotamer2 in rotamersSite2.trajectory:
-                        # only proceed if it isn't the PDB frame and there is no clash
-                        if rotamer2.frame > 1 and not rotamer2_clash[rotamer2.frame]:
+                        if not rotamer2_clash[rotamer2.frame]:
                             # measure and record the distance
                             (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
                             distances.append(distance[0])
                             # create the weights list
                             try:
-                                # subtract 1 because frame is 1-based
-                                weight = self.lib.weights[rotamer1.frame-1] * self.lib.weights[rotamer2.frame-1]
+                                weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
                             except IndexError:
                                 logger.error("oppps: no weights for rotamer 1 #{0} - "
                                              "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
@@ -202,13 +199,8 @@ class RotamerDistances(object):
 
         rotamerSel = fitted_rotamers.selectAtoms("not name H*")
 
-        rotamer_clash = [True]
-        rotamer_clash_counter = 0
+        rotamer_clash = []
         for rotamer in fitted_rotamers.trajectory:
             bumps = proteinNotSiteLookup.search(rotamerSel, self.clashDistance)
-            if bumps:
-                rotamer_clash.append(True)
-                rotamer_clash_counter += 1
-            else:
-                rotamer_clash.append(False)
-        return (rotamer_clash, rotamer_clash_counter)
+            rotamer_clash.append(bool(bumps))
+        return rotamer_clash, np.sum(rotamer_clash)
