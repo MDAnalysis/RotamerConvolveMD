@@ -6,7 +6,7 @@ use_setuptools()
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.1"
+    RELEASE = "1.2.dev"
     with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
     CLASSIFIERS = [
