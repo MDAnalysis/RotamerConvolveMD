@@ -73,23 +73,23 @@ class RotamerDistances(object):
 
         outputFileHistogram, ext = os.path.splitext(kwargs.pop('outputFileHistogram', 'distances'))
         ext = ext or ".dat"
-        self.outputFileHistogram = "{0}-{1[0]}-{1[1]}{2}".format(outputFileHistogram, residues, ext)
+        self.outputFileHistogram = "{0}-{1[0]}-{1[1]}-histogram{2}".format(outputFileHistogram, residues, ext)
 
         outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
         ext = ext or ".dat"
-        self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}{2}".format(outputFileRawDistances, residues, ext)
+        self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}-rawDistances{2}".format(outputFileRawDistances, residues, ext)
         
         
         dcdFilenameAll, ext = os.path.splitext(kwargs.pop('dcdFilenameAll', 'trj'))
         ext = ext or ".dcd"
-        tmptrj = ["{0}-1{1}".format(dcdFilenameAll, ext),  # or make this temp files?
-                  "{0}-2{1}".format(dcdFilenameAll, ext),  # or make this temp files?
+        tmptrj = ["{0}-{1[0]}-{1[1]}-all-1{2}".format(dcdFilenameAll, residues, ext),  # or make this temp files?
+                  "{0}-{1[0]}-{1[1]}-all-2{2}".format(dcdFilenameAll, residues, ext),  # or make this temp files?
                   ]
         
         dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))
         ext = ext or ".dcd"
-        tmptrjNoClashes = ["{0}-rawDistances-1{1}".format(dcdFilenameNoClashes, ext),  # or make this temp files?
-                           "{0}-rawDistances-2{1}".format(dcdFilenameNoClashes, ext),  # or make this temp files?
+        tmptrjNoClashes = ["{0}-{1[0]}-{1[1]}-noClashes-1{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
+                           "{0}-{1[0]}-{1[1]}-noClashes-2{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
                           ]
 
 
