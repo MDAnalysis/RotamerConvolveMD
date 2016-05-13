@@ -1,4 +1,4 @@
 include README.rst INSTALL.rst LICENSE
-include ez_setup.py setup.py 
+include setup.py 
 recursive-include   doc *
 graft   rotcon/data
