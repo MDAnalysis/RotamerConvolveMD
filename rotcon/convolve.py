@@ -111,8 +111,8 @@ class RotamerDistances(object):
                                                                                  residues[1])
 
             # define the atoms to measure the distances between
-            rotamer1nitrogen = rotamersSite1.selectAtoms("name N1")
-            rotamer2nitrogen = rotamersSite2.selectAtoms("name N1")
+            rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
+            rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
 
             # loop over all the rotamers on the first site
             for rotamer1 in rotamersSite1.trajectory:
@@ -191,13 +191,13 @@ class RotamerDistances(object):
     def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):
         """Detect any rotamer that clashes with the protein."""
         # make a KD tree of the protein neighbouring atoms
-        proteinNotSite = protein.selectAtoms("protein and not name H* and not (resid " + str(site_resid) +
+        proteinNotSite = protein.select_atoms("protein and not name H* and not (resid " + str(site_resid) +
                                              " or (resid " + str(site_resid-1) + " and (name C or name O)) "
                                                                                  "or (resid " + str(site_resid+1)
                                              + " and name N))")
         proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)
 
-        rotamerSel = fitted_rotamers.selectAtoms("not name H*")
+        rotamerSel = fitted_rotamers.select_atoms("not name H*")
 
         rotamer_clash = []
         for rotamer in fitted_rotamers.trajectory:
