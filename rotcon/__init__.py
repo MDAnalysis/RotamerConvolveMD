@@ -1,5 +1,5 @@
-# -*- Mode: python; tab-width: 4; indent-tabs-mode:nil; -*-
-# vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
+# -*- Mode: python; tab-width: 4; indent-tabs-mode:nil; coding: utf-8 -*-
+# vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8
 #
 # Convolve MTSS rotamers with MD trajectory.
 # Copyright (c) 2011-2013 Philip Fowler, Oliver Beckstein
@@ -14,7 +14,7 @@
 :Author:    Philip W Fowler, Oliver Beckstein
 :Year:      2013
 :Licence:   GNU Public Licence, version 2 (or higher)
-:Copyright: © 2013 Philip W Fowler, Oliver Beckstein
+:Copyright: Â© 2013 Philip W Fowler, Oliver Beckstein
 :Citation:  LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. J Mol Biol
             426 (2014), 735-751. doi: 10.1016/j.jmb.2013.10.024
 
@@ -52,7 +52,7 @@ method that
 1. maps rotamer libraries of the MTSL spin label onto each position,
 
 2. discards those rotamers that sterically clash with the protein
-   (typically distances <2 Å) and
+   (typically distances <2 Ã…) and
 
 3. calculates all (weighted) distance pairs between the remaining
    rotamers and
@@ -174,5 +174,4 @@ References
 
 """
 
-VERSION = 1,1
-
+VERSION = 1, 2, "dev"

@@ -10,18 +10,16 @@
 
 import MDAnalysis
 import MDAnalysis.analysis.align
-import MDAnalysis.KDTree.NeighborSearch as KDNS
-from MDAnalysis.core.distances import distance_array
+import MDAnalysis.lib.NeighborSearch as KDNS
 import MDAnalysis.analysis.distances
 
 import numpy as np
 import os.path
 
+import rotcon.library
+
 import logging
 logger = logging.getLogger("MDAnalysis.app")
-
-
-import rotcon.library
 
 
 def rms_fit_trj(*args, **kwargs):
@@ -94,7 +92,7 @@ class RotamerDistances(object):
                      "(only last frame of MD trajectory): {0[0]} and {0[1]}".format(tmptrj))
         logger.debug("Results will be written to {0}.".format(self.outputFile))
 
-        progressmeter = MDAnalysis.core.log.ProgressMeter(proteinStructure.trajectory.numframes, interval=1)
+        progressmeter = MDAnalysis.log.ProgressMeter(proteinStructure.trajectory.n_frames, interval=1)
         for protein in proteinStructure.trajectory:
             progressmeter.echo(protein.frame)
             if protein.frame < kwargs['discardFrames']:
@@ -113,24 +111,21 @@ class RotamerDistances(object):
                                                                                  residues[1])
 
             # define the atoms to measure the distances between
-            rotamer1nitrogen = rotamersSite1.selectAtoms("name N1")
-            rotamer2nitrogen = rotamersSite2.selectAtoms("name N1")
+            rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
+            rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
 
             # loop over all the rotamers on the first site
             for rotamer1 in rotamersSite1.trajectory:
-                # only proceed if it isn't the PDB frame and there is no clash
-                if rotamer1.frame > 1 and not rotamer1_clash[rotamer1.frame]:
+                if not rotamer1_clash[rotamer1.frame]:
                     # loop over all the rotamers on the second site
                     for rotamer2 in rotamersSite2.trajectory:
-                        # only proceed if it isn't the PDB frame and there is no clash
-                        if rotamer2.frame > 1 and not rotamer2_clash[rotamer2.frame]:
+                        if not rotamer2_clash[rotamer2.frame]:
                             # measure and record the distance
                             (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
                             distances.append(distance[0])
                             # create the weights list
                             try:
-                                # subtract 1 because frame is 1-based
-                                weight = self.lib.weights[rotamer1.frame-1] * self.lib.weights[rotamer2.frame-1]
+                                weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
                             except IndexError:
                                 logger.error("oppps: no weights for rotamer 1 #{0} - "
                                              "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
@@ -144,7 +139,7 @@ class RotamerDistances(object):
         # calculate Nbins and min and max so that we cover at least
         # the requested lower and upper bounds with the given fixed
         # bin width
-        bins = MDAnalysis.core.util.fixedwidth_bins(histogramBins[2], histogramBins[0], histogramBins[1])
+        bins = MDAnalysis.lib.util.fixedwidth_bins(histogramBins[2], histogramBins[0], histogramBins[1])
         # use numpy to histogram the distance data, weighted appropriately
         (a, b) = np.histogram(distances, weights=weights, density=True, bins=bins['Nbins'],
                               range=(bins['min'], bins['max']))
@@ -196,21 +191,16 @@ class RotamerDistances(object):
     def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):
         """Detect any rotamer that clashes with the protein."""
         # make a KD tree of the protein neighbouring atoms
-        proteinNotSite = protein.selectAtoms("protein and not name H* and not (resid " + str(site_resid) +
+        proteinNotSite = protein.select_atoms("protein and not name H* and not (resid " + str(site_resid) +
                                              " or (resid " + str(site_resid-1) + " and (name C or name O)) "
                                                                                  "or (resid " + str(site_resid+1)
                                              + " and name N))")
         proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)
 
-        rotamerSel = fitted_rotamers.selectAtoms("not name H*")
+        rotamerSel = fitted_rotamers.select_atoms("not name H*")
 
-        rotamer_clash = [True]
-        rotamer_clash_counter = 0
+        rotamer_clash = []
         for rotamer in fitted_rotamers.trajectory:
-            bumps = proteinNotSiteLookup.search_list(rotamerSel, self.clashDistance)
-            if bumps:
-                rotamer_clash.append(True)
-                rotamer_clash_counter += 1
-            else:
-                rotamer_clash.append(False)
-        return (rotamer_clash, rotamer_clash_counter)
+            bumps = proteinNotSiteLookup.search(rotamerSel, self.clashDistance)
+            rotamer_clash.append(bool(bumps))
+        return rotamer_clash, np.sum(rotamer_clash)

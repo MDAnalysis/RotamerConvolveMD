@@ -1,12 +1,10 @@
 #! /usr/bin/python
 # coding=utf-8
-from ez_setup import use_setuptools
 
-use_setuptools()
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.1"
+    RELEASE = "1.2.dev"
     with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
     CLASSIFIERS = [
@@ -27,7 +25,8 @@ if __name__ == '__main__':
           author='Philip W. Fowler',
           author_email='philip.fowler@ndm.ox.ac.uk',
           url='https://github.com/MDAnalysis/RotamerConvolveMD',
-          requires=['numpy (>=1.6)', 'MDAnalysis (>0.7.7, <0.11.0)'],
+          requires=['numpy (>=1.6)', 'MDAnalysis (>=0.11.0)'],
+          install_requires=['numpy>=1.6.0', 'MDAnalysis>=0.11.0'],
           provides=['rotcon'],
           license='GPL 2',
           packages=find_packages(exclude=['scripts', 'rotcon/data']),
