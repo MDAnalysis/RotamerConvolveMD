@@ -1,0 +1,32 @@
+==============================
+ MDAnalysisTestData CHANGELOG
+==============================
+
+The rules for this file:
+  * entries are sorted newest-first.
+  * summarize sets of changes - don't reproduce every commit log comment here.
+  * don't ever delete anything.
+  * keep the format consistent (79 char width, M/D/Y date format) and do not
+    use tabs but use spaces for formatting
+
+------------------------------------------------------------------------------
+
+05/??/2016 kain88-de, philipwfowler, orbeckst
+  * 1.2.0
+    - compatible with MDAnalysis >= 0.11.0 (issue #2)
+    - code and library clean-up (removed superfluous duplicated
+      initial frame, see issue #6)
+    - contact information updated
+    - use semantic versioning for release numbering (http://semver.org)
+	
+04/07/2015 orbeckst, seb-buch
+  * 1.1
+    - code to conform to PEP8
+    - meta data: link updates
+    - split off from MDAnalysis repository
+
+01/15/15  philipwfowler, orbeckst, alejob
+  * 1.0
+    - initial release
+    - includes Gunnar Jeschke's rotamers for MTSS at 298 K
+    - used for work published in Stelzl et al, J Mol Biol 426 (2016), 735

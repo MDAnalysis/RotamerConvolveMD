@@ -1,0 +1,44 @@
+.. -*- mode: rst; coding: utf-8 -*-
+
+==============================
+ Authors of RotamerConvolveMD
+==============================
+
+RotamerConvolveMD was originally written by Philip W. Fowler.
+
+
+All contributing authors are listed in this file below. The repository
+history at https://github.com/MDAnalysis/RotamerConvolveMD and the
+CHANGELOG show individual code contributions.
+
+
+Chronological list of authors
+-----------------------------
+
+Authors are listed with known first involvement (either started
+project or first commit) and GitHub.
+
+
+2012
+  - Philip W. Fowler @philipwfowler
+
+2013
+  - Oliver Beckstein @orbeckst
+
+2014
+  - Alejandro Bernardin @alejob
+
+2015
+  - Sébastien Buchoux @seb-buch
+
+2016
+  - Max Linke @kain88-de
+  
+
+Data
+----
+
+RotamerConvolveMD contains data from the following authors
+
+- Gunnar Jeschke: 
+  - MTSL rotamer library R1A_298K (GPL licensed)

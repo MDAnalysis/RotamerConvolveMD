@@ -1,4 +1,4 @@
-include README.rst INSTALL.rst LICENSE
+include README.rst INSTALL.rst LICENSE AUTHORS CHANGELOG
 include setup.py 
 recursive-include   doc *
 graft   rotcon/data
