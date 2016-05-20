@@ -26,10 +26,12 @@ import MDAnalysis
 from itertools import izip
 
 
+# NOTE: Does not work at the moment. See https://github.com/MDAnalysis/mdanalysis/issues/859
+
 def build_trr(trr="./rotamer1_R1A_298K.trr"):
     L = MDAnalysis.Universe("./rotamer1_R1A_298K.pdb", "./rotamer1_R1A_298K.dcd")
     pop = np.loadtxt("R1A_298K_populations.dat")
-    with MDAnalysis.Writer(trr, L.atoms.numberOfAtoms()) as W:
+    with MDAnalysis.Writer(trr, L.atoms.n_atoms) as W:
         for ts, p in izip(L.trajectory, pop):
             ts.lmbda = p  # add lambda for TRR
             W.write(ts)
@@ -44,19 +46,18 @@ def test(trr="rotamer1_R1A_298K.trr"):
 
 if __name__ == "__main__":
     import argparse
-    # http://stackoverflow.com/questions/12151306/argparse-way-to-include-default-values-in-help
-    # http://stackoverflow.com/questions/4480075/argparse-optional-positional-arguments
     parser = argparse.ArgumentParser(description='Build a TRR-formated rotamer library'
                                                  ' from the original DCD and dat files.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('filename', nargs="?", default="./rotamer1_R1A_298K.trr",
+    parser.add_argument('filename', nargs="?",
+                        default="./rotamer1_R1A_298K.trr",
                         help="Write library to TRR filename")
     args = parser.parse_args()
-    trr = build_trr(trr=args.trr)
-    print("Created TRR-formatted rotamer library {0}".format(trr))
+    trr = build_trr(trr=args.filename)
+    print("Created TRR-formatted rotamer library {0}".format(args.filename))
     print("Testing...")
     try:
-        test(trr)
+        test(args.filename)
     except AssertionError:
         print("New library contains errors. Do not use and investigate!")
         sys.exit(1)

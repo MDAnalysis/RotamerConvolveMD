@@ -71,11 +71,6 @@ class RotamerLibrary(object):
 
     .. attribute:: lib
        Dictionary containing the file names and meta data for the library :attr:`name`.
-
-    .. Note::
-
-       For technical reasons, the first frame of the rotamers is to be
-       omitted and has been assigned a weight of 0.
     """
 
     def __init__(self, name):
@@ -110,10 +105,12 @@ class RotamerLibrary(object):
             raise ValueError(err_msg)
 
     def read_rotamer_weights(self, filename):
-        """read in the rotamer weights from *filename*"""
-        # OB: Why do we need [0] prepended, i.e. what is the first frame?
-        return np.concatenate(([0], np.loadtxt(filename)))
+        """read in the rotamer weights from *filename*
+
+        There is one weight per conformer (frame) in the trajectory.
+        """
+        return np.loadtxt(filename)
 
     def __repr__(self):
         return "<RotamerLibrary '{0}' by {1} with {2} rotamers>".format(self.name, self.lib['author'],
-                                                                        len(self.weights)-2)
+                                                                        len(self.weights))
