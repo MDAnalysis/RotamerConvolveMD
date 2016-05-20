@@ -61,7 +61,8 @@ if __name__ == "__main__":
         options, args = parser.parse_args()
 
         MDAnalysis.start_logging()
-        logger.info("Rotamer Convolve MD --- Copyright (c) Philip W Fowler, Oliver Beckstein 2011-2013")
+        logger.info("Rotamer Convolve MD, release {0} --- Copyright (c) Philip W Fowler, "
+                    "Oliver Beckstein 2011-2013".format(rotcon.get_version_string()))
         logger.info("Released under the GNU Public Licence, version 2 (or higher)")
         logger.info("Please cite: LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. "
                     "J Mol Biol 426 (2014), 735-751, doi:10.1016/j.jmb.2013.10.024")
