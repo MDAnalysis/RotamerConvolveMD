@@ -45,7 +45,7 @@ class RotamerDistances(object):
               name of the temporary files with rotamers fitted [``'trj'``]
            *dcdFilenameNoClashes*
               name of the temporary files with rotamers fitted [``'trj'``]
-           *outputFileHistogram*
+           *outputFile*
               stem of the name of the file containing the distance histogram
               (the final name will be ``<outputFile><resid_1>-<resid_2>.dat``
               [``'distances'``]
@@ -71,9 +71,9 @@ class RotamerDistances(object):
             raise ValueError("The residue_list must contain exactly 2 residue numbers: current "
                              "value {0}.".format(residues))
 
-        outputFileHistogram, ext = os.path.splitext(kwargs.pop('outputFileHistogram', 'distances'))
+        outputFile, ext = os.path.splitext(kwargs.pop('outputFile', 'distances'))
         ext = ext or ".dat"
-        self.outputFileHistogram = "{0}-{1[0]}-{1[1]}-histogram{2}".format(outputFileHistogram, residues, ext)
+        self.outputFile = "{0}-{1[0]}-{1[1]}-histogram{2}".format(outputFile, residues, ext)
 
         outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
         ext = ext or ".dat"
@@ -108,7 +108,7 @@ class RotamerDistances(object):
         logger.info("clashDistance = {0} A; rotamer library = '{1}'".format(self.clashDistance, self.lib.name))
         logger.debug("Temporary trajectories for rotamers 1 and 2 "
                      "(only last frame of MD trajectory): {0[0]} and {0[1]}".format(tmptrj))
-        logger.debug("Results will be written to {0}.".format(self.outputFileHistogram))
+        logger.debug("Results will be written to {0}.".format(self.outputFile))
 
         progressmeter = MDAnalysis.log.ProgressMeter(proteinStructure.trajectory.n_frames, interval=1)
         for protein in proteinStructure.trajectory:
@@ -170,11 +170,11 @@ class RotamerDistances(object):
         (a, b) = np.histogram(distances, weights=weights, density=True, bins=bins['Nbins'],
                               range=(bins['min'], bins['max']))
 
-        with open(self.outputFileHistogram, 'w') as OUTPUT:
+        with open(self.outputFile, 'w') as OUTPUT:
             for (i, j) in enumerate(a):
                 OUTPUT.write("%6.2f %8.3e\n" % ((0.5*(b[i] + b[i+1])), j))
         logger.info("Distance distribution for residues {0[0]} - {0[1]} "
-                    "was written to {1}".format(residues, self.outputFileHistogram))
+                    "was written to {1}".format(residues, self.outputFile))
         
         with open(self.outputFileRawDistances, 'w') as OUTPUT:
             for distance in distances:
@@ -192,7 +192,7 @@ class RotamerDistances(object):
         if ax is None:
             ax = fig.add_subplot(111)
 
-        dist, prob = np.loadtxt(self.outputFileHistogram, unpack=True)
+        dist, prob = np.loadtxt(self.outputFile, unpack=True)
         ax.plot(dist, prob, **kwargs)
         ax.set_xlabel(r"spin-label distance $d$ ($\AA$)")
         ax.set_ylabel("probability density")
