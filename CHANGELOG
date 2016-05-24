@@ -11,7 +11,10 @@ The rules for this file:
 
 ------------------------------------------------------------------------------
 
-05/??/2016 kain88-de, philipwfowler, orbeckst, katrinr
+??/??/2016
+  * 1.2.1
+
+05/24/2016 kain88-de, philipwfowler, orbeckst, katrinr
   * 1.2.0
     - compatible with MDAnalysis >= 0.11.0 (issue #2)
     - code and library clean-up (removed superfluous duplicated

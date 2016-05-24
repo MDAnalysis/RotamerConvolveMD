@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.2.0"
+    RELEASE = "1.2.1.dev"
     with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
     CLASSIFIERS = [
