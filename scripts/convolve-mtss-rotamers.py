@@ -50,8 +50,14 @@ if __name__ == "__main__":
         parser.add_option("--output", dest="outputFile", default="output.dat",
                           help="the path and name of the output histogram file; the filename will "
                                "have resid 1 and resid 2 inserted before the extension [%default]")
+        parser.add_option("--outputRawDistances", dest="outputFileRawDistances", default="outputRawDistances.dat",
+                          help="the path and name of the output file with raw distances; the filename will "
+                               "have resid 1 and resid 2 inserted before the extension [%default]")
         parser.add_option("--dcdfilename", dest="dcdFilename", metavar="FILENAME",
                           help="the path and stem of the DCD files of the fitted MTSS rotamers")
+        parser.add_option("--dcdfilenameNoClashes", dest="dcdFilenameNoClashes", metavar="FILENAME",
+                          help="the path and stem of the DCD files of the fitted MTSS rotamers "
+                               "without clashes")
         parser.add_option("--libname", dest="libname", metavar="NAME", default="MTSSL 298K",
                           help="name of the rotamer library [%default]")
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
@@ -84,8 +90,12 @@ if __name__ == "__main__":
         startTime = time.time()
         R = rotcon.convolve.RotamerDistances(proteinStructure,
                                              options.residues,
-                                             outputFile=options.outputFile, dcdFilename=options.dcdFilename,
-                                             libname=options.libname, discardFrames=options.discardFrames,
+                                             outputFile=options.outputFile, 
+                                             outputFileRawDistances=options.outputFileRawDistances, 
+                                             dcdFilename=options.dcdFilename,
+                                             dcdFilenameNoClashes=options.dcdFilenameNoClashes,
+                                             libname=options.libname, 
+                                             discardFrames=options.discardFrames,
                                              clashDistance=options.clashDistance,
                                              histogramBins=options.histogramBins)
         logger.info("DONE with analysis, elapsed time %6i s" % (int(time.time() - startTime)))

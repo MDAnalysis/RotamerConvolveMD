@@ -43,9 +43,15 @@ class RotamerDistances(object):
         :Keywords:
            *dcdFilename*
               name of the temporary files with rotamers fitted [``'trj'``]
+           *dcdFilenameNoClashes*
+              name of the temporary files with rotamers fitted [``'trj'``]
            *outputFile*
               stem of the name of the file containing the distance histogram
               (the final name will be ``<outputFile><resid_1>-<resid_2>.dat``
+              [``'distances'``]
+           *outputFileRawDistances*
+              stem of the name of the file containing the raw distances
+              (the final name will be ``<outputFile><resid_1>-<resid_2>_distances.dat``
               [``'distances'``]
            *libname*
               library name; the library is loaded with
@@ -69,11 +75,23 @@ class RotamerDistances(object):
         ext = ext or ".dat"
         self.outputFile = "{0}-{1[0]}-{1[1]}{2}".format(outputFile, residues, ext)
 
+        outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
+        ext = ext or ".dat"
+        self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}-rawDistances{2}".format(outputFileRawDistances, residues, ext)
+        
+        
         dcdFilename, ext = os.path.splitext(kwargs.pop('dcdFilename', 'trj'))
         ext = ext or ".dcd"
-        tmptrj = ["{0}-1{1}".format(dcdFilename, ext),  # or make this temp files?
-                  "{0}-2{1}".format(dcdFilename, ext),  # or make this temp files?
+        tmptrj = ["{0}-{1[0]}-{1[1]}-1{2}".format(dcdFilename, residues, ext),  # or make this temp files?
+                  "{0}-{1[0]}-{1[1]}-2{2}".format(dcdFilename, residues, ext),  # or make this temp files?
                   ]
+        
+        dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))
+        ext = ext or ".dcd"
+        tmptrjNoClashes = ["{0}-{1[0]}-{1[1]}-noClashes-1{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
+                           "{0}-{1[0]}-{1[1]}-noClashes-2{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
+                          ]
+
 
         kwargs.setdefault('discardFrames', 0)
         self.clashDistance = kwargs.pop('clashDistance', 2.2)  # Ångström
@@ -114,22 +132,30 @@ class RotamerDistances(object):
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
             rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
 
-            # loop over all the rotamers on the first site
-            for rotamer1 in rotamersSite1.trajectory:
-                if not rotamer1_clash[rotamer1.frame]:
-                    # loop over all the rotamers on the second site
-                    for rotamer2 in rotamersSite2.trajectory:
-                        if not rotamer2_clash[rotamer2.frame]:
-                            # measure and record the distance
-                            (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
-                            distances.append(distance[0])
-                            # create the weights list
-                            try:
-                                weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
-                            except IndexError:
-                                logger.error("oppps: no weights for rotamer 1 #{0} - "
-                                             "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
-                            weights.append(weight)
+            # define the atoms to measure the distances between
+            rotamer1All = rotamersSite1.select_atoms("all")
+            rotamer2All = rotamersSite2.select_atoms("all")
+            
+            with MDAnalysis.Writer("{}".format(tmptrjNoClashes[0]), rotamer1All.n_atoms) as S1:
+                with MDAnalysis.Writer("{}".format(tmptrjNoClashes[1]), rotamer2All.n_atoms) as S2:
+                    # loop over all the rotamers on the first site
+                    for rotamer1 in rotamersSite1.trajectory:
+                        if not rotamer1_clash[rotamer1.frame]:
+                            # loop over all the rotamers on the second site
+                            for rotamer2 in rotamersSite2.trajectory:
+                                if not rotamer2_clash[rotamer2.frame]:
+                                    S1.write(rotamersSite1.atoms)
+                                    S2.write(rotamersSite2.atoms)
+                                    # measure and record the distance
+                                    (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
+                                    distances.append(distance[0])
+                                    # create the weights list
+                                    try:
+                                        weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
+                                    except IndexError:
+                                        logger.error("oppps: no weights for rotamer 1 #{0} - "
+                                                    "rotamer 2 #{1}".format(rotamer1.frame, rotamer2.frame))
+                                    weights.append(weight)
 
         # check that at least two distances have been measured
         if len(distances) < 2:
@@ -149,6 +175,11 @@ class RotamerDistances(object):
                 OUTPUT.write("%6.2f %8.3e\n" % ((0.5*(b[i] + b[i+1])), j))
         logger.info("Distance distribution for residues {0[0]} - {0[1]} "
                     "was written to {1}".format(residues, self.outputFile))
+        
+        with open(self.outputFileRawDistances, 'w') as OUTPUT:
+            for distance in distances:
+                OUTPUT.write("%8.3e\n" % (distance))
+
 
     def plot(self, **kwargs):
         """Load data file and plot"""

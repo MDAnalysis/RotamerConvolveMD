@@ -1,0 +1,39 @@
+package:
+  name: rotcon
+  version: "0.1.2"
+
+source:
+    path: .
+
+build:
+    noarch_python: True
+    script: $PYTHON setup.py install
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - six
+    - numpy
+    - mdanalysis
+
+  run:
+    - python
+    - six
+    - numpy
+    - mdanalysis
+
+test:
+  # Python imports
+  imports:
+    - rotcon
+
+about:
+  home: https://github.com/MDAnalysis/RotamerConvolveMD
+  license: GPLv2
+  license_file: LICENSE
+  summary: 'Analysis of spin label distances over structural ensembles'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
