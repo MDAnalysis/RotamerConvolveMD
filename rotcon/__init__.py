@@ -174,7 +174,7 @@ References
 
 """
 
-VERSION = 1, 2, 0, "dev"
+VERSION = 1, 2, 0
 
 def get_version_string():
     return ".".join([str(x) for x in VERSION])

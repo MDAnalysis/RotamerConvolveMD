@@ -1,6 +1,6 @@
 package:
   name: rotcon
-  version: "0.1.2"
+  version: "1.2.0"
 
 source:
     path: .

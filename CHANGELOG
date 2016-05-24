@@ -19,7 +19,9 @@ The rules for this file:
     - additional output files: distance histograms and ensemble of
       all non-clashing rotamers (PR #5)
     - contact information updated
-    - use semantic versioning for release numbering (http://semver.org)
+    - use semantic versioning for release numbering
+      (http://semver.org)
+    - conda package at https://anaconda.org/MDAnalysis
 
 04/07/2015 orbeckst, seb-buch
   * 1.1
