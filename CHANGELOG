@@ -11,14 +11,16 @@ The rules for this file:
 
 ------------------------------------------------------------------------------
 
-05/??/2016 kain88-de, philipwfowler, orbeckst
+05/??/2016 kain88-de, philipwfowler, orbeckst, katrinr
   * 1.2.0
     - compatible with MDAnalysis >= 0.11.0 (issue #2)
     - code and library clean-up (removed superfluous duplicated
       initial frame, see issue #6)
+    - additional output files: distance histograms and ensemble of
+      all non-clashing rotamers (PR #5)
     - contact information updated
     - use semantic versioning for release numbering (http://semver.org)
-	
+
 04/07/2015 orbeckst, seb-buch
   * 1.1
     - code to conform to PEP8
