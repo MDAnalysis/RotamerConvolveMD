@@ -53,7 +53,7 @@ if __name__ == "__main__":
         parser.add_option("--outputRawDistances", dest="outputFileRawDistances", default="outputRawDistances.dat",
                           help="the path and name of the output file with raw distances; the filename will "
                                "have resid 1 and resid 2 inserted before the extension [%default]")
-        parser.add_option("--dcdfilenameAll", dest="dcdFilenameAll", metavar="FILENAME",
+        parser.add_option("--dcdfilename", dest="dcdFilename", metavar="FILENAME",
                           help="the path and stem of the DCD files of the fitted MTSS rotamers")
         parser.add_option("--dcdfilenameNoClashes", dest="dcdFilenameNoClashes", metavar="FILENAME",
                           help="the path and stem of the DCD files of the fitted MTSS rotamers "
@@ -84,15 +84,15 @@ if __name__ == "__main__":
 
         logger.info("Loading trajectory data as Universe({0})".format(*args))
 
-        if not options.dcdFilenameAll:
-                options.dcdFilenameAll = options.outputFile + "-tmp"
+        if not options.dcdFilename:
+                options.dcdFilename = options.outputFile + "-tmp"
 
         startTime = time.time()
         R = rotcon.convolve.RotamerDistances(proteinStructure,
                                              options.residues,
                                              outputFile=options.outputFile, 
                                              outputFileRawDistances=options.outputFileRawDistances, 
-                                             dcdFilenameAll=options.dcdFilenameAll,
+                                             dcdFilename=options.dcdFilename,
                                              dcdFilenameNoClashes=options.dcdFilenameNoClashes,
                                              libname=options.libname, 
                                              discardFrames=options.discardFrames,

@@ -41,7 +41,7 @@ class RotamerDistances(object):
               the labelled sites
 
         :Keywords:
-           *dcdFilenameAll*
+           *dcdFilename*
               name of the temporary files with rotamers fitted [``'trj'``]
            *dcdFilenameNoClashes*
               name of the temporary files with rotamers fitted [``'trj'``]
@@ -73,17 +73,17 @@ class RotamerDistances(object):
 
         outputFile, ext = os.path.splitext(kwargs.pop('outputFile', 'distances'))
         ext = ext or ".dat"
-        self.outputFile = "{0}-{1[0]}-{1[1]}-histogram{2}".format(outputFile, residues, ext)
+        self.outputFile = "{0}-{1[0]}-{1[1]}{2}".format(outputFile, residues, ext)
 
         outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
         ext = ext or ".dat"
         self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}-rawDistances{2}".format(outputFileRawDistances, residues, ext)
         
         
-        dcdFilenameAll, ext = os.path.splitext(kwargs.pop('dcdFilenameAll', 'trj'))
+        dcdFilename, ext = os.path.splitext(kwargs.pop('dcdFilename', 'trj'))
         ext = ext or ".dcd"
-        tmptrj = ["{0}-{1[0]}-{1[1]}-all-1{2}".format(dcdFilenameAll, residues, ext),  # or make this temp files?
-                  "{0}-{1[0]}-{1[1]}-all-2{2}".format(dcdFilenameAll, residues, ext),  # or make this temp files?
+        tmptrj = ["{0}-{1[0]}-{1[1]}-1{2}".format(dcdFilename, residues, ext),  # or make this temp files?
+                  "{0}-{1[0]}-{1[1]}-2{2}".format(dcdFilename, residues, ext),  # or make this temp files?
                   ]
         
         dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))

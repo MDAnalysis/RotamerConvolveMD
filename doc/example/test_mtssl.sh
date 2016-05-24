@@ -16,10 +16,10 @@ convolve-mtss-rotamers.py \
     --clashDistance 2.2  \
     --output "dat/peptso-xrd" \
     --plotname "dat/peptso-xrd.pdf" \
-    --outputRawDistances "dat/peptso-xrd-47-330" \
-    --dcdfilenameAll "dcd/peptso-xrd-47-330" \
-    --dcdfilenameNoClashes "dcd/peptso-xrd-47-330" \
+    --outputRawDistances "dat/peptso-xrd" \
+    --dcdfilename "dcd/peptso-xrd" \
+    --dcdfilenameNoClashes "dcd/peptso-xrd" \
     peptso.gro 
 
-diff reference/peptso-xrd-47-330.dat dat/peptso-xrd-47-330-histogram.dat
+diff reference/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
 test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."
