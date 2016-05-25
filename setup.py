@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.2.1.dev"
+    RELEASE = "1.2.0.dev"
     with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
     CLASSIFIERS = [
@@ -31,7 +31,7 @@ if __name__ == '__main__':
           license='GPL 2',
           packages=find_packages(exclude=['scripts', 'rotcon/data']),
           package_data={'rotcon': ['data/*.pdb', 'data/*.dcd', 'data/*.dat']},
-          scripts=['scripts/convolve-mtss-rotamers.py'],
+          scripts=['scripts/convolve-mtss-rotamers.py', 'scripts/convolve-mtss-rotamers_pre.py'],
           classifiers=CLASSIFIERS,
           long_description=LONG_DESCRIPTION,
           zip_safe=True,
