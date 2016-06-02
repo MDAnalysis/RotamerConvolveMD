@@ -105,8 +105,8 @@ class RotamerDistances(object):
             rotamersSite1 = MDAnalysis.Universe(self.lib.rotamers.filename, tmptrj)
             (rotamer1_clash, rotamer1_clash_total) = self.find_clashing_rotamers(rotamersSite1,
                                                                     proteinStructure, residue)
-            proteinNH = proteinStructure.select_atoms("protein and name HN") # or HN
-            
+            proteinHN = proteinStructure.select_atoms("protein and name HN") # or HN
+           
             # define the atoms to measure the distances between
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
 
@@ -118,12 +118,11 @@ class RotamerDistances(object):
                 for rotamer1 in rotamersSite1.trajectory:
                     if not rotamer1_clash[rotamer1.frame]:
                         S1.write(rotamersSite1.atoms)
-                        for i in range(0,proteinNH.n_atoms):
-                            nh = proteinNH.select_atoms("resid {}".format(i+1))
-                            if nh.n_atoms == 1:
-                                (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, 
-                                                                                      nh)
-                                distances.append([i+1, distance[0]])
+                        for nh in proteinHN:
+                            atom = proteinHN.select_atoms('resid {}'.format(nh.resnum))
+                            (a, b, distance) = \
+                                MDAnalysis.analysis.distances.dist(rotamer1nitrogen, atom)
+                            distances.append([nh.resnum, distance[0]])
 
 
 
