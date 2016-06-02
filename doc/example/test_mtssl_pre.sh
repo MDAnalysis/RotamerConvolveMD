@@ -13,7 +13,7 @@ fi
 convolve-mtss-rotamers_pre.py \
     --resid 47  \
     --clashDistance 2.2  \
-    --plotname "dat/peptso-xrd.pdf" \
+    --plotname "dat/peptso-xrd-47.pdf" \
     --outputRawDistances "dat/peptso-xrd" \
     --dcdfilenameAll "dcd/peptso-xrd" \
     --dcdfilenameNoClashes "dcd/peptso-xrd" \
