@@ -4,13 +4,17 @@
  MTSL Rotamer fitting to trajectories
 ======================================
 
-:Author:    Philip W Fowler, Oliver Beckstein
+:Author:    Philip W Fowler, Oliver Beckstein and AUTHORS_
 :Year:      2013
 :Licence:   GNU Public Licence, version 2 (or higher)
-:Copyright: © 2013 Philip W Fowler, Oliver Beckstein
+:Copyright: © 2013 Philip W Fowler, Oliver Beckstein,
+            © 2014–2016 AUTHORS_
 :Citation:  LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. J Mol Biol
             426 (2014), 735-751. doi: 10.1016/j.jmb.2013.10.024
-            
+
+.. _AUTHORS:
+   https://raw.githubusercontent.com/MDAnalysis/RotamerConvolveMD/master/AUTHORS
+
 This package contains the *MTSL rotamer library R1A_298K* provided by
 `Gunnar Jeschke`_, which is also published under the GPL with his
 permission.
@@ -91,8 +95,12 @@ for site-wide installation).
 Usage
 =====
 
-Analysis is performed with the script
-``convolve-mtss-rotamers.py``. It takes as input
+DEER
+----
+
+Analysis for standard DEER experiments with MTSL spin labels is
+performed with the script ``convolve-mtss-rotamers.py``. It takes as
+input
 
 * a topology or structure file (PSF, GRO, PDB, ... any `topology
   format`_ recognized by MDAnalysis)
@@ -116,7 +124,19 @@ further explanations see the ``--help`` option.
 For an example, see ``doc/example`` in the source distribution. The
 example can also be run to test the installation as reference output
 is provided.
-  
+
+
+PRE
+---
+
+The ``convolve-mtss-rotamers_pre.py`` script computes distances
+between MTSL (N1) and HN atoms of the protein. This can be used for
+the comparison with experimental PREs (paramagnetic relaxation
+enhancement).
+
+
+
+
 
 Help
 ====
