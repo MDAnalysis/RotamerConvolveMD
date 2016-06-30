@@ -109,6 +109,7 @@ class RotamerDistances(object):
            
             # define the atoms to measure the distances between
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
+            rotamer1oxygen = rotamersSite1.select_atoms("name O1")
 
             # define the atoms to measure the distances between
             rotamer1All = rotamersSite1.select_atoms("all")
@@ -120,10 +121,11 @@ class RotamerDistances(object):
                         S1.write(rotamersSite1.atoms)
                         for nh in proteinHN:
                             atom = proteinHN.select_atoms('resid {}'.format(nh.resnum))
-                            (a, b, distance) = \
+                            (a, b, distance_nitrogen) = \
                                 MDAnalysis.analysis.distances.dist(rotamer1nitrogen, atom)
-                            distances.append([nh.resnum, distance[0]])
-
+                            (a, b, distance_oxygen) = \
+                                MDAnalysis.analysis.distances.dist(rotamer1oxygen, atom)
+                            distances.append([nh.resnum, np.mean([distance_nitrogen[0], distance_oxygen[0]])])
 
 
         # check that at least two distances have been measured

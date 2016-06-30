@@ -24,7 +24,8 @@ Summary
 
 This package analyses molecular dynamics trajectories or
 conformational ensembles in terms of spin-label distances as probed in
-double electron-electron resonance (DEER) experiments. The spin labels
+double electron-electron resonance (DEER) experiments and spin-label to amide protin distances as
+probed in paramagnetic relaxation enhancement (PRE) experiments. The spin labels
 are fitted on trajectories and the spin label mobility is taken into
 account using a rotamer library.
 
@@ -35,12 +36,16 @@ Background
 Double electron electron spin resonance (DEER) is an EPR technique for
 measuring distances between two spin labels that have been covalently
 attached to a protein. Two cysteine residues are introduced into the
-protein and subsequently labelled. The positions are chosen to report
-on the expected conformational change. A commonly used spin label is
-(1-oxyl-2,2,5,5-tetramethylpyrroline-3-methyl)-methanethiosulfonate
+protein and subsequently labelled. Paramagnetic relaxation enhancement 
+(PRE) is an NMR technique for measuring distances between a spin label 
+and the amide protons of the protein backbone. One cysteine residue is 
+introduced at the position of the label The positions 
+are chosen to report on the expected conformational change. A commonly 
+used spin label is (1-oxyl-2,2,5,5-tetramethylpyrroline-3-methyl)-methanethiosulfonate
 (MTSL). MTSL has a linker with five rotatable bonds and is therefore
-very flexible. The distance distributions between the two spin labels
-measured by experiments are typically broad and often multi-modal. The
+very flexible. The distance distributions between the two spin labels 
+(DEER) or one spin label and the amide protons are measured by 
+experiments are typically broad and often multi-modal. The
 distributions are therefore a convolution of the flexibility of the
 MTSL spin label and the conformational spread of the proteins in the
 sample. To ensure that we compared like with like we developed a
@@ -65,7 +70,13 @@ Our approach improves upon the existing method [Polyhach2011]_ by
 increasing computational efficiency and implementing, via the
 MDAnalysis library, analysis of ensembles of hundreds of structures,
 which allowed us to estimate distance distributions for entire
-simulation trajectories. 
+simulation trajectories. In the case of PRE measurements, it enables 
+the user to calculate back the transverse relaxation enhancement 
+to compare raw data without calculating the distances based on the
+experiment.
+
+In the case of MTSL, the distances are determined by considering the position of the free electron
+located between nitrogen (N1) and (O1).
 
 Examples of the application of this approach can be found in
 [Stelzl2014]_.
@@ -102,16 +113,23 @@ Analysis for standard DEER experiments with MTSL spin labels is
 performed with the script ``convolve-mtss-rotamers.py``. It takes as
 input
 
-* a topology or structure file (PSF, GRO, PDB, ... any `topology
-  format`_ recognized by MDAnalysis)
-* a trajectory (DCD, XTC, TRR, ... any `trajectory format`_ that
-  MDAnalysis can read)
+* a topology or structure file (psf, gro, pdb, ... any `topology
+  format`_ recognized by mdanalysis)
+* a trajectory (dcd, xtc, trr, ... any `trajectory format`_ that
+  mdanalysis can read)
 
-A typical invocation::
+a typical invocation::
 
-   convolve-mtss-rotamers.py --resid 47 330  --histogramBins 0 80 1  --clashDistance 2.2  \
-          --output "dat/peptso-xrd"  --dcdfilename "dcd/peptso-xrd-47-330" \
-          peptso.gro peptso.xtc 
+    convolve-mtss-rotamers.py \
+        --resid 47 330  \
+        --histogramBins 0 80 1  \
+        --clashDistance 2.2  \
+        --output "dat/peptso-xrd" \
+        --plotname "dat/peptso-xrd.pdf" \
+        --outputRawDistances "dat/peptso-xrd" \
+        --dcdfilename "dcd/peptso-xrd" \
+        --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        peptso.gro peptso.xtc
 
 It loads the MD trajectory from the topology ``peptso.gro`` and the
 trajectory ``peptso.xtc``. The ``--resid`` pair is required and
@@ -129,11 +147,31 @@ is provided.
 PRE
 ---
 
-The ``convolve-mtss-rotamers_pre.py`` script computes distances
-between MTSL (N1) and HN atoms of the protein. This can be used for
-the comparison with experimental PREs (paramagnetic relaxation
-enhancement).
+Analysis for standard PRE experiments with MTSL spin label is performed 
+with the script ``convolve-mtss-rotamers_pre.py``. Similar to the 
+analysis of DEER experiments, it takes as inputs:
 
+* a topology or structure file (psf, gro, pdb, ... any `topology
+  format`_ recognized by mdanalysis)
+* a trajectory (dcd, xtc, trr, ... any `trajectory format`_ that
+  mdanalysis can read)
+
+a typical invocation::
+
+    convolve-mtss-rotamers_pre.py \
+        --resid 47  \
+        --clashDistance 2.2  \
+        --plotname "dat/peptso-xrd-47.pdf" \
+        --outputRawDistances "dat/peptso-xrd" \
+        --dcdfilenameAll "dcd/peptso-xrd" \
+        --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        peptso.gro peptso.xtc 
+
+The ``--resid`` is required and denotes the residue number (in the topology) 
+to which the MTSSL spin label would be attached. Rotamers that overlap 
+with protein atoms as measured by an atom-atom distance smaller than 
+the ``--clashDistance`` will be discarded and not counted in the distance 
+calculations. For further explanations see the ``--help`` option.
 
 
 

@@ -131,6 +131,8 @@ class RotamerDistances(object):
             # define the atoms to measure the distances between
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
             rotamer2nitrogen = rotamersSite2.select_atoms("name N1")
+            rotamer1oxygen = rotamersSite1.select_atoms("name O1")
+            rotamer2oxygen = rotamersSite2.select_atoms("name O1")
 
             # define the atoms to measure the distances between
             rotamer1All = rotamersSite1.select_atoms("all")
@@ -147,8 +149,9 @@ class RotamerDistances(object):
                                     S1.write(rotamersSite1.atoms)
                                     S2.write(rotamersSite2.atoms)
                                     # measure and record the distance
-                                    (a, b, distance) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
-                                    distances.append(distance[0])
+                                    (a, b, distance_nitrogen) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
+                                    (a, b, distance_oxygen) = MDAnalysis.analysis.distances.dist(rotamer1oxygen, rotamer2oxygen)
+                                    distances.append(np.mean([distance_nitrogen[0], distance_oxygen[0]]))
                                     # create the weights list
                                     try:
                                         weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]
