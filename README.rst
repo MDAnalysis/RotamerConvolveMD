@@ -33,6 +33,9 @@ account using a rotamer library.
 Background
 ==========
 
+Site-directed spin labeling (SDSL) is a common technique to inverstigate 
+structure and dynamics of macromolecular systems. Covalentry attached 
+spin labels are introduced to the system and induce electron spin resonance. 
 Double electron electron spin resonance (DEER) is an EPR technique for
 measuring distances between two spin labels that have been covalently
 attached to a protein. Two cysteine residues are introduced into the
@@ -95,7 +98,8 @@ This will automatically install MDAnalysis and other dependencies. If
 problems arise, try installing MDAnalysis first (see
 http://www.mdanalysis.org for help).
 
-Analysis is performed with the script ``convolve-mtss-rotamers.py``,
+Analysis is performed with the script ``convolve-mtss-rotamers.py`` 
+(DEER) or ``convolve-mtss-rotamers_pre.py`` (PRE), 
 which will have been installed in your ``bin`` directory. You might
 have to add the bin directory to your ``PATH``. Consult your Python
 documentation for the details although often this will be
