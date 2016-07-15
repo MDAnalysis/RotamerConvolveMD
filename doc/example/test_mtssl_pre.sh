@@ -10,8 +10,6 @@ if [ "`which convolve-mtss-rotamers_pre.py`" = "" ]; then
     exit 2
 fi
 
-useNOelectron=0
-
 convolve-mtss-rotamers_pre.py \
     --resid 47  \
     --clashDistance 2.2  \
@@ -19,14 +17,9 @@ convolve-mtss-rotamers_pre.py \
     --outputRawDistances "dat/peptso-xrd" \
     --dcdfilenameAll "dcd/peptso-xrd" \
     --dcdfilenameNoClashes "dcd/peptso-xrd" \
-    --useNOelectron $useNOelectron \
+    --useNOelectron \
     peptso.gro 
 
 
-if [ "$useNOelectron" -eq 0 ]; then
-    diff reference_pre/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
-    test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."
-elif [ "$useNOelectron" -eq 1 ]; then
-    diff reference_pre_NO/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
-    test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."
-fi
+diff reference_pre_NO/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
+test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."

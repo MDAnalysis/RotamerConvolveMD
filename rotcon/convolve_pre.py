@@ -58,8 +58,8 @@ class RotamerDistances(object):
               and protein atoms is < *clashDistance*. Values down to
               1.5 Å are reasonable. The default is conservative. [``2.2`` Å]
            *useNOelectron*
-            0 = N1 atoms are used for distance measurement, 
-            1 = geometic midpoints of N1 and O1 atoms are used for distance calculation
+            True = N1 atoms are used for distance measurement, 
+            False = geometic midpoints of N1 and O1 atoms are used for distance calculation
         """
         proteinStructure = args[0]
         residue = args[1]
@@ -82,7 +82,7 @@ class RotamerDistances(object):
 
         kwargs.setdefault('discardFrames', 0)
         self.clashDistance = kwargs.pop('clashDistance', 2.2)  # Ångström
-        useNOelectron = kwargs.pop('useNOelectron')
+        useNOelectron = kwargs.pop('useNOelectron', True)
 
         self.lib = rotcon.library.RotamerLibrary(kwargs.get('libname', 'MTSSL 298K'))
 
@@ -127,11 +127,11 @@ class RotamerDistances(object):
                             atom = proteinHN.select_atoms('resid {}'.format(nh.resnum))
                             (a, b, distance_nitrogen) = \
                                 MDAnalysis.analysis.distances.dist(rotamer1nitrogen, atom)
-                            if useNOelectron == 1:
+                            if useNOelectron == True:
                                 (a, b, distance_oxygen) = \
                                     MDAnalysis.analysis.distances.dist(rotamer1oxygen, atom)
                                 distance = np.mean([distance_nitrogen[0], distance_oxygen[0]])
-                            elif useNOelectron == 0:
+                            elif useNOelectron == False:
                                 distance = distance_nitrogen[0]
                             distances.append([nh.resnum, distance])
 
