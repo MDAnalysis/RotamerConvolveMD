@@ -64,6 +64,9 @@ class RotamerDistances(object):
               1.5 Å are reasonable. The default is conservative. [``2.2`` Å]
            *histogramBins*
              tuple ``(dmin, dmax, delta)`` in Ångström [``(0.0, 100.0, 1.0)``]
+           *useNOelectron*
+            0 = N1 atoms used distance measurements, 
+            1 = geometic midpoints of N1 and O1 atoms used for distance calculation
         """
         proteinStructure = args[0]
         residues = args[1]
@@ -92,10 +95,10 @@ class RotamerDistances(object):
                            "{0}-{1[0]}-{1[1]}-noClashes-2{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
                           ]
 
-
         kwargs.setdefault('discardFrames', 0)
         self.clashDistance = kwargs.pop('clashDistance', 2.2)  # Ångström
         histogramBins = kwargs.pop('histogramBins', (0.0, 100.0, 1.0))
+        useNOelectron = kwargs.pop('useNOelectron')
 
         self.lib = rotcon.library.RotamerLibrary(kwargs.get('libname', 'MTSSL 298K'))
 
@@ -150,8 +153,12 @@ class RotamerDistances(object):
                                     S2.write(rotamersSite2.atoms)
                                     # measure and record the distance
                                     (a, b, distance_nitrogen) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
-                                    (a, b, distance_oxygen) = MDAnalysis.analysis.distances.dist(rotamer1oxygen, rotamer2oxygen)
-                                    distances.append(np.mean([distance_nitrogen[0], distance_oxygen[0]]))
+                                    if useNOelectron == 1:
+                                        (a, b, distance_oxygen) = MDAnalysis.analysis.distances.dist(rotamer1oxygen, rotamer2oxygen)
+                                        distance = np.mean([distance_nitrogen[0], distance_oxygen[0]])
+                                    elif useNOelectron == 0:
+                                        distance = distance_nitrogen[0]
+                                    distances.append(distance)
                                     # create the weights list
                                     try:
                                         weight = self.lib.weights[rotamer1.frame] * self.lib.weights[rotamer2.frame]

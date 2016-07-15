@@ -58,6 +58,9 @@ if __name__ == "__main__":
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
                           help="plot the histogram to FILENAME (the extensions determines the "
                           "format) By default <outputFile>.pdf.")
+        parser.add_option("--useNOelectron", dest="useNOelectron", type=int, default=0,
+                          help="Set to 1, if the geometic midpoints of N1 and O1 atoms should be "
+                          "used for distances measurements.")
 
         options, args = parser.parse_args()
 
@@ -89,7 +92,8 @@ if __name__ == "__main__":
                                              dcdFilenameNoClashes=options.dcdFilenameNoClashes,
                                              libname=options.libname, 
                                              discardFrames=options.discardFrames,
-                                             clashDistance=options.clashDistance)
+                                             clashDistance=options.clashDistance,
+                                             useNOelectron=options.useNOelectron)
         logger.info("DONE with analysis, elapsed time %6i s" % (int(time.time() - startTime)))
 
         if options.plotname is None:

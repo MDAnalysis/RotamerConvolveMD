@@ -33,7 +33,7 @@ account using a rotamer library.
 Background
 ==========
 
-Site-directed spin labeling (SDSL) is a common technique to inverstigate 
+Site-directed spin labeling (SDSL) is a common technique to investigate 
 structure and dynamics of macromolecular systems. Covalentry attached 
 spin labels are introduced to the system and induce electron spin resonance. 
 Double electron electron spin resonance (DEER) is an EPR technique for
@@ -133,6 +133,7 @@ a typical invocation::
         --outputRawDistances "dat/peptso-xrd" \
         --dcdfilename "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        --useNOelectron 1 \
         peptso.gro peptso.xtc
 
 It loads the MD trajectory from the topology ``peptso.gro`` and the
@@ -140,8 +141,10 @@ trajectory ``peptso.xtc``. The ``--resid`` pair is required and
 denotes the residue numbers (in the topology) to which the MTSSL spin
 labels would be attached. Rotamers that overlap with protein atoms as
 measured by an atom-atom distance smaller than the ``--clashDistance``
-will be discarded and not counted in the distance calculations. For
-further explanations see the ``--help`` option.
+will be discarded and not counted in the distance calculations. 
+The user can decide to take either N1 ``--useNOelectron 0`` or the 
+geometric midpointis N1 and O1  ``--useNOelectron  1``  to calculate 
+the distances. For further explanations see the ``--help`` option.
 
 For an example, see ``doc/example`` in the source distribution. The
 example can also be run to test the installation as reference output
@@ -169,13 +172,16 @@ a typical invocation::
         --outputRawDistances "dat/peptso-xrd" \
         --dcdfilenameAll "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        --useNOelectron 1 \
         peptso.gro peptso.xtc 
 
 The ``--resid`` is required and denotes the residue number (in the topology) 
 to which the MTSSL spin label would be attached. Rotamers that overlap 
 with protein atoms as measured by an atom-atom distance smaller than 
 the ``--clashDistance`` will be discarded and not counted in the distance 
-calculations. For further explanations see the ``--help`` option.
+calculations. The user can decide to take either N1 ``--useNOelectron 0`` 
+or the geometric midpointis N1 and O1  ``--useNOelectron  1``  to calculate 
+the distances. For further explanations see the ``--help`` option.
 
 
 
