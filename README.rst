@@ -142,7 +142,7 @@ denotes the residue numbers (in the topology) to which the MTSSL spin
 labels would be attached. Rotamers that overlap with protein atoms as
 measured by an atom-atom distance smaller than the ``--clashDistance``
 will be discarded and not counted in the distance calculations. 
-The user can decide to take either N1 ``--useNOelectron`` or the 
+The user can decide to use either N1 ``--useNOelectron`` or the 
 geometric midpointis N1 and O1  ``--no-useNOelectron``  to calculate 
 the distances. For further explanations see the ``--help`` option.
 
@@ -179,7 +179,7 @@ The ``--resid`` is required and denotes the residue number (in the topology)
 to which the MTSSL spin label would be attached. Rotamers that overlap 
 with protein atoms as measured by an atom-atom distance smaller than 
 the ``--clashDistance`` will be discarded and not counted in the distance 
-calculations. The user can decide to take either N1 ``--useNOelectron`` 
+calculations. The user can decide to use either N1 ``--useNOelectron`` 
 or the geometric midpointis N1 and O1  ``--no-useNOelectron``  to calculate 
 the distances. For further explanations see the ``--help`` option.
 
