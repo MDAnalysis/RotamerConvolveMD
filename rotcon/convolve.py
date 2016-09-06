@@ -65,8 +65,8 @@ class RotamerDistances(object):
            *histogramBins*
              tuple ``(dmin, dmax, delta)`` in Ångström [``(0.0, 100.0, 1.0)``]
            *useNOelectron*
-            0 = N1 atoms used distance measurements, 
-            1 = geometic midpoints of N1 and O1 atoms used for distance calculation
+            True = N1 atoms used distance measurements, 
+            False = geometic midpoints of N1 and O1 atoms used for distance calculation
         """
         proteinStructure = args[0]
         residues = args[1]
@@ -98,7 +98,7 @@ class RotamerDistances(object):
         kwargs.setdefault('discardFrames', 0)
         self.clashDistance = kwargs.pop('clashDistance', 2.2)  # Ångström
         histogramBins = kwargs.pop('histogramBins', (0.0, 100.0, 1.0))
-        useNOelectron = kwargs.pop('useNOelectron')
+        useNOelectron = kwargs.pop('useNOelectron', True)
 
         self.lib = rotcon.library.RotamerLibrary(kwargs.get('libname', 'MTSSL 298K'))
 
@@ -153,10 +153,10 @@ class RotamerDistances(object):
                                     S2.write(rotamersSite2.atoms)
                                     # measure and record the distance
                                     (a, b, distance_nitrogen) = MDAnalysis.analysis.distances.dist(rotamer1nitrogen, rotamer2nitrogen)
-                                    if useNOelectron == 1:
+                                    if useNOelectron == True:
                                         (a, b, distance_oxygen) = MDAnalysis.analysis.distances.dist(rotamer1oxygen, rotamer2oxygen)
                                         distance = np.mean([distance_nitrogen[0], distance_oxygen[0]])
-                                    elif useNOelectron == 0:
+                                    elif useNOelectron == False:
                                         distance = distance_nitrogen[0]
                                     distances.append(distance)
                                     # create the weights list

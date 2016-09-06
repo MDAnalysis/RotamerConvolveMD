@@ -63,9 +63,12 @@ if __name__ == "__main__":
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
                           help="plot the histogram to FILENAME (the extensions determines the format) "
                                "By default <outputFile>.pdf.")
-        parser.add_option("--useNOelectron", dest="useNOelectron", type=int, default=0,
-                          help="Set to 1, if the geometic midpoints of N1 and O1 atoms should be "
+        parser.add_option("--useNOelectron", action="store_true", dest="useNOelectron",
+                          help="Set this flag, if the geometic midpoints of N1 and O1 atoms should be "
                           "used for distances measurements.")
+        parser.add_option("--no-useNOelectron", action="store_false", dest="useNOelectron",
+                          help="Set this flag, if N1 atoms should be used for distances measurements.")
+
 
         options, args = parser.parse_args()
 
