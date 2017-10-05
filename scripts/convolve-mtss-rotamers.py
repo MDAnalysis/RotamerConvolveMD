@@ -63,6 +63,8 @@ if __name__ == "__main__":
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
                           help="plot the histogram to FILENAME (the extensions determines the format) "
                                "By default <outputFile>.pdf.")
+        parser.add_option("--no-plot", action="store_false", dest="with_plot", default=True,
+                          help="suppress producing plots with --plotname")
         parser.add_option("--useNOelectron", action="store_true", dest="useNOelectron",
                           help="Set this flag, if the geometic midpoints of N1 and O1 atoms should be "
                           "used for distances measurements.")
@@ -96,20 +98,21 @@ if __name__ == "__main__":
         startTime = time.time()
         R = rotcon.convolve.RotamerDistances(proteinStructure,
                                              options.residues,
-                                             outputFile=options.outputFile, 
-                                             outputFileRawDistances=options.outputFileRawDistances, 
+                                             outputFile=options.outputFile,
+                                             outputFileRawDistances=options.outputFileRawDistances,
                                              dcdFilename=options.dcdFilename,
                                              dcdFilenameNoClashes=options.dcdFilenameNoClashes,
-                                             libname=options.libname, 
+                                             libname=options.libname,
                                              discardFrames=options.discardFrames,
                                              clashDistance=options.clashDistance,
                                              histogramBins=options.histogramBins,
                                              useNOelectron=options.useNOelectron)
         logger.info("DONE with analysis, elapsed time %6i s" % (int(time.time() - startTime)))
 
-        if options.plotname is None:
-            root, ext = os.path.splitext(R.outputFile)
-            options.plotname = root + ".pdf"
-        R.plot(filename=options.plotname, linewidth=2)
+        if options.with_plot:
+                if options.plotname is None:
+                        root, ext = os.path.splitext(R.outputFile)
+                        options.plotname = root + ".pdf"
+                R.plot(filename=options.plotname, linewidth=2)
 
         MDAnalysis.stop_logging()

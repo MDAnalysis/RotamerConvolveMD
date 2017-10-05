@@ -44,7 +44,7 @@ if __name__ == "__main__":
         parser.add_option("--clashDistance", dest="clashDistance", type=float, default=2.2,
                           help="the distance between heavy-atoms of the label and protein "
                           "within which they are assumed to be clashing [%default Angstroms]")
-        parser.add_option("--outputRawDistances", dest="outputFileRawDistances", 
+        parser.add_option("--outputRawDistances", dest="outputFileRawDistances",
                           default="outputRawDistances.dat", help="the path and name of "
                           "the output file with raw distances; the filename will "
                           "have resid 1 and resid 2 inserted before the extension [%default]")
@@ -56,18 +56,22 @@ if __name__ == "__main__":
         parser.add_option("--libname", dest="libname", metavar="NAME", default="MTSSL 298K",
                           help="name of the rotamer library [%default]")
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
-                          help="plot the histogram to FILENAME (the extensions determines the "
-                          "format) By default <outputFile>.pdf.")
+                          help="plot the histogram to FILENAME (the extensions determines the format) "
+                               "By default <outputFile>.pdf.")
+        parser.add_option("--no-plot", action="store_false", dest="with_plot", default=True,
+                          help="suppress producing plots with --plotname")
         parser.add_option("--useNOelectron", action="store_true", dest="useNOelectron",
                           help="Set this flag, if the geometic midpoints of N1 and O1 atoms should be "
                           "used for distances measurements.")
         parser.add_option("--no-useNOelectron", action="store_false", dest="useNOelectron",
                           help="Set this flag, if N1 atoms should be used for distances measurements.")
 
+
         options, args = parser.parse_args()
 
         MDAnalysis.start_logging()
-        logger.info("Rotamer Convolve MD --- Copyright (c) Philip W Fowler, Oliver Beckstein 2011-2013")
+        logger.info("Rotamer Convolve MD, release {0} --- Copyright (c) Philip W Fowler, "
+                    "Oliver Beckstein 2011-2013 and see AUTHORS".format(rotcon.get_version_string()))
         logger.info("Released under the GNU Public Licence, version 2 (or higher)")
         logger.info("Please cite: LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. "
                     "J Mol Biol 426 (2014), 735-751, doi:10.1016/j.jmb.2013.10.024")
@@ -89,18 +93,19 @@ if __name__ == "__main__":
         startTime = time.time()
         R = rotcon.convolve_pre.RotamerDistances(proteinStructure,
                                              options.residue,
-                                             outputFileRawDistances=options.outputFileRawDistances, 
+                                             outputFileRawDistances=options.outputFileRawDistances,
                                              dcdFilenameAll=options.dcdFilenameAll,
                                              dcdFilenameNoClashes=options.dcdFilenameNoClashes,
-                                             libname=options.libname, 
+                                             libname=options.libname,
                                              discardFrames=options.discardFrames,
                                              clashDistance=options.clashDistance,
                                              useNOelectron=options.useNOelectron)
         logger.info("DONE with analysis, elapsed time %6i s" % (int(time.time() - startTime)))
 
-        if options.plotname is None:
-            root, ext = os.path.splitext(R.outputFile)
-            options.plotname = root + ".pdf"
-        R.plot(filename=options.plotname, linewidth=2)
+        if options.with_plot:
+                if options.plotname is None:
+                        root, ext = os.path.splitext(R.outputFile)
+                        options.plotname = root + ".pdf"
+                R.plot(filename=options.plotname, linewidth=2)
 
         MDAnalysis.stop_logging()
