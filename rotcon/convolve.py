@@ -7,6 +7,7 @@
 #
 # Includes a rotamer library for MTSS at 298 K by Gunnar Jeschke,
 # which is published under the same licence by permission.
+from __future__ import absolute_import
 
 import MDAnalysis
 import MDAnalysis.analysis.align
@@ -17,14 +18,51 @@ import numpy as np
 import os.path
 import matplotlib.pyplot as plt
 
-import rotcon.library
+from . import library
 
 import logging
 logger = logging.getLogger("MDAnalysis.app")
 
+class RotamerDistancesBase(object):
+    @staticmethod
+    def fit_rotamers(rotamers, protein, site_resid, dcdfile):
+        """Produce a temporary trajectory of the rotamers.
+
+        The backbone of the rotamers is fitted to the backbone of the
+        spin labelled residues.
+        """
+        # create an ordered list allowing the rotamer to be fitted onto the backbone of the protein
+        fittingSelection = (["name C", "name CA", "name N"],
+                            ["protein and name C and resid {0}".format(site_resid),
+                             "protein and name CA and resid {0}".format(site_resid),
+                             "protein and name N and resid {0}".format(site_resid)
+                             ])
+        # fit the rotamer library onto the protein
+        MDAnalysis.analysis.align.AlignTraj(rotamers, protein,
+                                            select=fittingSelection, weights="mass",
+                                            filename=dcdfile,
+                                            verbose=False).run()
+        return dcdfile
+
+    def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):
+        """Detect any rotamer that clashes with the protein."""
+        # make a KD tree of the protein neighbouring atoms
+        proteinNotSite = protein.select_atoms("protein and not name H* and not (resid " + str(site_resid) +
+                                             " or (resid " + str(site_resid-1) + " and (name C or name O)) "
+                                                                                 "or (resid " + str(site_resid+1)
+                                             + " and name N))")
+        proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)
+
+        rotamerSel = fitted_rotamers.select_atoms("not name H*")
+
+        rotamer_clash = []
+        for rotamer in fitted_rotamers.trajectory:
+            bumps = proteinNotSiteLookup.search(rotamerSel, self.clashDistance)
+            rotamer_clash.append(bool(bumps))
+        return rotamer_clash, np.sum(rotamer_clash)
 
 
-class RotamerDistances(object):
+class RotamerDistances(RotamerDistancesBase):
     """Calculation of distance distributions between two spin labels."""
     def __init__(self, *args, **kwargs):
         """RotamerDistances(universe, residue_list, **kwargs)
@@ -96,7 +134,7 @@ class RotamerDistances(object):
         histogramBins = kwargs.pop('histogramBins', (0.0, 100.0, 1.0))
         useNOelectron = kwargs.pop('useNOelectron', True)
 
-        self.lib = rotcon.library.RotamerLibrary(kwargs.get('libname', 'MTSSL 298K'))
+        self.lib = library.RotamerLibrary(kwargs.get('libname', 'MTSSL 298K'))
 
         # setup the main lists
         distances = []
@@ -208,39 +246,3 @@ class RotamerDistances(object):
             logger.info("Plotted distance distribution to {0}".format(filename))
 
         return ax
-
-    def fit_rotamers(self, rotamers, protein, site_resid, dcdfile):
-        """Produce a temporary trajectory of the rotamers.
-
-        The backbone of the rotamers is fitted to the backbone of the
-        spin labelled residues.
-        """
-        # create an ordered list allowing the rotamer to be fitted onto the backbone of the protein
-        fittingSelection = (["name C", "name CA", "name N"],
-                            ["protein and name C and resid {0}".format(site_resid),
-                             "protein and name CA and resid {0}".format(site_resid),
-                             "protein and name N and resid {0}".format(site_resid)
-                             ])
-        # fit the rotamer library onto the protein
-        MDAnalysis.analysis.align.AlignTraj(rotamers, protein,
-                                            select=fittingSelection, weights="mass",
-                                            filename=dcdfile,
-                                            verbose=False).run()
-        return dcdfile
-
-    def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):
-        """Detect any rotamer that clashes with the protein."""
-        # make a KD tree of the protein neighbouring atoms
-        proteinNotSite = protein.select_atoms("protein and not name H* and not (resid " + str(site_resid) +
-                                             " or (resid " + str(site_resid-1) + " and (name C or name O)) "
-                                                                                 "or (resid " + str(site_resid+1)
-                                             + " and name N))")
-        proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)
-
-        rotamerSel = fitted_rotamers.select_atoms("not name H*")
-
-        rotamer_clash = []
-        for rotamer in fitted_rotamers.trajectory:
-            bumps = proteinNotSiteLookup.search(rotamerSel, self.clashDistance)
-            rotamer_clash.append(bool(bumps))
-        return rotamer_clash, np.sum(rotamer_clash)
