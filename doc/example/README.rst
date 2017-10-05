@@ -13,6 +13,7 @@ Run the DEER example from this directory::
         --outputRawDistances "dat/peptso-xrd" \
         --dcdfilename "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        --useNOelectron \	
         peptso.gro 
 
 Compare the output to the reference::
