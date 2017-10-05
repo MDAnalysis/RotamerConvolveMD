@@ -15,17 +15,13 @@ import MDAnalysis.analysis.distances
 
 import numpy as np
 import os.path
+import matplotlib.pyplot as plt
 
 import rotcon.library
 
 import logging
 logger = logging.getLogger("MDAnalysis.app")
 
-
-def rms_fit_trj(*args, **kwargs):
-    """Silenced :func:`MDAnalysis.analysis.align.rms_fit_trj`"""
-    kwargs['quiet'] = True
-    return MDAnalysis.analysis.align.rms_fit_trj(*args, **kwargs)
 
 
 class RotamerDistances(object):
@@ -58,7 +54,7 @@ class RotamerDistances(object):
               and protein atoms is < *clashDistance*. Values down to
               1.5 Å are reasonable. The default is conservative. [``2.2`` Å]
            *useNOelectron*
-            True = N1 atoms are used for distance measurement, 
+            True = N1 atoms are used for distance measurement,
             False = geometic midpoints of N1 and O1 atoms are used for distance calculation
         """
         proteinStructure = args[0]
@@ -67,14 +63,14 @@ class RotamerDistances(object):
 
         outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
         ext = ext or ".dat"
-        self.outputFileRawDistances = "{0}-{1}-rawDistances{2}".format(outputFileRawDistances, 
+        self.outputFileRawDistances = "{0}-{1}-rawDistances{2}".format(outputFileRawDistances,
                                                                         residue, ext)
-        
-        
+
+
         dcdFilenameAll, ext = os.path.splitext(kwargs.pop('dcdFilenameAll', 'trj'))
         ext = ext or ".dcd"
         tmptrj = "{0}-{1}-all{2}".format(dcdFilenameAll, residue, ext)
-        
+
         dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))
         ext = ext or ".dcd"
         tmptrjNoClashes = "{0}-{1}-noClashes{2}".format(dcdFilenameNoClashes, residue, ext)
@@ -92,7 +88,7 @@ class RotamerDistances(object):
 
         logger.info("Starting rotamer distance analysis of trajectory "
                     "{0}...".format(proteinStructure.trajectory.filename))
-        logger.info("clashDistance = {0} A; rotamer library = '{1}'".format(self.clashDistance, 
+        logger.info("clashDistance = {0} A; rotamer library = '{1}'".format(self.clashDistance,
                                                                             self.lib.name))
         logger.debug("Temporary trajectories for rotamers 1 and 2 "
                      "(only last frame of MD trajectory): {0[0]} and {0[1]}".format(tmptrj))
@@ -110,14 +106,14 @@ class RotamerDistances(object):
             (rotamer1_clash, rotamer1_clash_total) = self.find_clashing_rotamers(rotamersSite1,
                                                                     proteinStructure, residue)
             proteinHN = proteinStructure.select_atoms("protein and name HN") # or HN
-           
+
             # define the atoms to measure the distances between
             rotamer1nitrogen = rotamersSite1.select_atoms("name N1")
             rotamer1oxygen = rotamersSite1.select_atoms("name O1")
 
             # define the atoms to measure the distances between
             rotamer1All = rotamersSite1.select_atoms("all")
-            
+
             with MDAnalysis.Writer("{}".format(tmptrjNoClashes), rotamer1All.n_atoms) as S1:
                 # loop over all the rotamers on the first site
                 for rotamer1 in rotamersSite1.trajectory:
@@ -139,10 +135,10 @@ class RotamerDistances(object):
         # check that at least two distances have been measured
         if len(distances) < 2:
             logger.critical("no distances found between the spin pair!")
-            raise RuntimeError("no distances found between the spin pair!")  
+            raise RuntimeError("no distances found between the spin pair!")
         # should this really be an exception?
 
-        
+
         with open(self.outputFileRawDistances, 'w') as OUTPUT:
             for distance in distances:
                 OUTPUT.write("{0[0]}\t{0[1]}\n".format(distance))
@@ -162,9 +158,9 @@ class RotamerDistances(object):
 
         dataResidues = dict()
         for j in range(0, len(data[0])):
-            if int(data[0][j]) in dataResidues: 
+            if int(data[0][j]) in dataResidues:
                 dataResidues[int(data[0][j])].append(data[1][j])
-            else: 
+            else:
                 dataResidues[int(data[0][j])] = [data[1][j]]
 
         for data in dataResidues:
@@ -190,7 +186,10 @@ class RotamerDistances(object):
                              "protein and name N and resid {0}".format(site_resid)
                              ])
         # fit the rotamer library onto the protein
-        rms_fit_trj(rotamers, protein, select=fittingSelection, mass_weighted=True, filename=dcdfile)
+        MDAnalysis.analysis.align.AlignTraj(rotamers, protein,
+                                            select=fittingSelection, weights="mass",
+                                            filename=dcdfile,
+                                            verbose=False).run()
         return dcdfile
 
     def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):

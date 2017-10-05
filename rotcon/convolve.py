@@ -15,17 +15,13 @@ import MDAnalysis.analysis.distances
 
 import numpy as np
 import os.path
+import matplotlib.pyplot as plt
 
 import rotcon.library
 
 import logging
 logger = logging.getLogger("MDAnalysis.app")
 
-
-def rms_fit_trj(*args, **kwargs):
-    """Silenced :func:`MDAnalysis.analysis.align.rms_fit_trj`"""
-    kwargs['quiet'] = True
-    return MDAnalysis.analysis.align.rms_fit_trj(*args, **kwargs)
 
 
 class RotamerDistances(object):
@@ -65,7 +61,7 @@ class RotamerDistances(object):
            *histogramBins*
              tuple ``(dmin, dmax, delta)`` in Ångström [``(0.0, 100.0, 1.0)``]
            *useNOelectron*
-            True = N1 atoms used distance measurements, 
+            True = N1 atoms used distance measurements,
             False = geometic midpoints of N1 and O1 atoms used for distance calculation
         """
         proteinStructure = args[0]
@@ -81,14 +77,14 @@ class RotamerDistances(object):
         outputFileRawDistances, ext = os.path.splitext(kwargs.pop('outputFileRawDistances', 'distances'))
         ext = ext or ".dat"
         self.outputFileRawDistances = "{0}-{1[0]}-{1[1]}-rawDistances{2}".format(outputFileRawDistances, residues, ext)
-        
-        
+
+
         dcdFilename, ext = os.path.splitext(kwargs.pop('dcdFilename', 'trj'))
         ext = ext or ".dcd"
         tmptrj = ["{0}-{1[0]}-{1[1]}-1{2}".format(dcdFilename, residues, ext),  # or make this temp files?
                   "{0}-{1[0]}-{1[1]}-2{2}".format(dcdFilename, residues, ext),  # or make this temp files?
                   ]
-        
+
         dcdFilenameNoClashes, ext = os.path.splitext(kwargs.pop('dcdFilenameNoClashes', 'trj'))
         ext = ext or ".dcd"
         tmptrjNoClashes = ["{0}-{1[0]}-{1[1]}-noClashes-1{2}".format(dcdFilenameNoClashes, residues, ext),  # or make this temp files?
@@ -140,7 +136,7 @@ class RotamerDistances(object):
             # define the atoms to measure the distances between
             rotamer1All = rotamersSite1.select_atoms("all")
             rotamer2All = rotamersSite2.select_atoms("all")
-            
+
             with MDAnalysis.Writer("{}".format(tmptrjNoClashes[0]), rotamer1All.n_atoms) as S1:
                 with MDAnalysis.Writer("{}".format(tmptrjNoClashes[1]), rotamer2All.n_atoms) as S2:
                     # loop over all the rotamers on the first site
@@ -185,7 +181,7 @@ class RotamerDistances(object):
                 OUTPUT.write("%6.2f %8.3e\n" % ((0.5*(b[i] + b[i+1])), j))
         logger.info("Distance distribution for residues {0[0]} - {0[1]} "
                     "was written to {1}".format(residues, self.outputFile))
-        
+
         with open(self.outputFileRawDistances, 'w') as OUTPUT:
             for distance in distances:
                 OUTPUT.write("%8.3e\n" % (distance))
@@ -193,7 +189,7 @@ class RotamerDistances(object):
 
     def plot(self, **kwargs):
         """Load data file and plot"""
-        import matplotlib.pyplot as plt
+
         filename = kwargs.pop('filename', None)
         fig = kwargs.pop('fig', None)
         if fig is None:
@@ -226,7 +222,10 @@ class RotamerDistances(object):
                              "protein and name N and resid {0}".format(site_resid)
                              ])
         # fit the rotamer library onto the protein
-        rms_fit_trj(rotamers, protein, select=fittingSelection, mass_weighted=True, filename=dcdfile)
+        MDAnalysis.analysis.align.AlignTraj(rotamers, protein,
+                                            select=fittingSelection, weights="mass",
+                                            filename=dcdfile,
+                                            verbose=False).run()
         return dcdfile
 
     def find_clashing_rotamers(self, fitted_rotamers, protein, site_resid):
