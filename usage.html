@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using RotamerConvolveMD &#8212; RotamerConvolveMD 1.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/mdanalysis-logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Background" href="background.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-rotamerconvolvemd">
+<h1>Using RotamerConvolveMD<a class="headerlink" href="#using-rotamerconvolvemd" title="Permalink to this headline">¶</a></h1>
+<p>When installing the package, two scripts are installed in the <code class="docutils literal"><span class="pre">bin</span></code>
+directory:</p>
+<ul class="simple">
+<li><strong class="program">convolve-mtss-rotamers.py</strong> analyzes standard DEER
+experiments with MTSL spin labels.</li>
+<li><strong class="program">convolve-mtss-rotamers_pre.py</strong> analyzes PRE experiments
+with MTSL spin labels.</li>
+</ul>
+<p>Scripts are run from the command line.</p>
+<div class="section" id="deer">
+<h2>DEER<a class="headerlink" href="#deer" title="Permalink to this headline">¶</a></h2>
+<p>Analysis for standard DEER experiments with MTSL spin labels is
+performed with the script <code class="docutils literal"><span class="pre">convolve-mtss-rotamers.py</span></code>. It takes as
+input</p>
+<ul class="simple">
+<li>a topology or structure file (psf, gro, pdb, … any <a class="reference external" href="https://www.mdanalysis.org/docs/documentation_pages/topology/init.html#supported-topology-formats">topology
+format</a> recognized by mdanalysis)</li>
+<li>a trajectory (dcd, xtc, trr, … any <a class="reference external" href="https://www.mdanalysis.org/docs/documentation_pages/coordinates/init.html#id1">trajectory format</a> that
+mdanalysis can read)</li>
+</ul>
+<p>A typical invocation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">convolve</span><span class="o">-</span><span class="n">mtss</span><span class="o">-</span><span class="n">rotamers</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">resid</span> <span class="mi">47</span> <span class="mi">330</span>  \
+    <span class="o">--</span><span class="n">histogramBins</span> <span class="mi">0</span> <span class="mi">80</span> <span class="mi">1</span>  \
+    <span class="o">--</span><span class="n">clashDistance</span> <span class="mf">2.2</span>  \
+    <span class="o">--</span><span class="n">output</span> <span class="s2">&quot;dat/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">plotname</span> <span class="s2">&quot;dat/peptso-xrd.pdf&quot;</span> \
+    <span class="o">--</span><span class="n">outputRawDistances</span> <span class="s2">&quot;dat/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">dcdfilename</span> <span class="s2">&quot;dcd/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">dcdfilenameNoClashes</span> <span class="s2">&quot;dcd/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">useNOelectron</span> \
+    <span class="n">peptso</span><span class="o">.</span><span class="n">gro</span> <span class="n">peptso</span><span class="o">.</span><span class="n">xtc</span>
+</pre></div>
+</div>
+<p>It loads the MD trajectory from the topology <code class="docutils literal"><span class="pre">peptso.gro</span></code> and the
+trajectory <code class="docutils literal"><span class="pre">peptso.xtc</span></code>. The <code class="docutils literal"><span class="pre">--resid</span></code> pair is required and
+denotes the residue numbers (in the topology) to which the MTSSL spin
+labels would be attached. Rotamers that overlap with protein atoms as
+measured by an atom-atom distance smaller than the <code class="docutils literal"><span class="pre">--clashDistance</span></code>
+will be discarded and not counted in the distance calculations.
+The user can decide to use either N1 <code class="docutils literal"><span class="pre">--useNOelectron</span></code> or the
+geometric midpointis N1 and O1  <code class="docutils literal"><span class="pre">--no-useNOelectron</span></code>  to calculate
+the distances. For further explanations see the <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
+<p>For an example, see <code class="docutils literal"><span class="pre">doc/example</span></code> in the source distribution. The
+example can also be run to test the installation as reference output
+is provided.</p>
+</div>
+<div class="section" id="pre">
+<h2>PRE<a class="headerlink" href="#pre" title="Permalink to this headline">¶</a></h2>
+<p>Analysis for standard PRE experiments with MTSL spin label is performed
+with the script <code class="docutils literal"><span class="pre">convolve-mtss-rotamers_pre.py</span></code>. Similar to the
+analysis of DEER experiments, it takes as inputs:</p>
+<ul class="simple">
+<li>a topology or structure file (psf, gro, pdb, … any <a class="reference external" href="https://www.mdanalysis.org/docs/documentation_pages/topology/init.html#supported-topology-formats">topology
+format</a> recognized by mdanalysis)</li>
+<li>a trajectory (dcd, xtc, trr, … any <a class="reference external" href="https://www.mdanalysis.org/docs/documentation_pages/coordinates/init.html#id1">trajectory format</a> that
+mdanalysis can read)</li>
+</ul>
+<p>A typical invocation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">convolve</span><span class="o">-</span><span class="n">mtss</span><span class="o">-</span><span class="n">rotamers_pre</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">resid</span> <span class="mi">47</span>  \
+    <span class="o">--</span><span class="n">clashDistance</span> <span class="mf">2.2</span>  \
+    <span class="o">--</span><span class="n">plotname</span> <span class="s2">&quot;dat/peptso-xrd-47.pdf&quot;</span> \
+    <span class="o">--</span><span class="n">outputRawDistances</span> <span class="s2">&quot;dat/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">dcdfilenameAll</span> <span class="s2">&quot;dcd/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">dcdfilenameNoClashes</span> <span class="s2">&quot;dcd/peptso-xrd&quot;</span> \
+    <span class="o">--</span><span class="n">useNOelectron</span> \
+    <span class="n">peptso</span><span class="o">.</span><span class="n">gro</span> <span class="n">peptso</span><span class="o">.</span><span class="n">xtc</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">--resid</span></code> is required and denotes the residue number (in the topology)
+to which the MTSSL spin label would be attached. Rotamers that overlap
+with protein atoms as measured by an atom-atom distance smaller than
+the <code class="docutils literal"><span class="pre">--clashDistance</span></code> will be discarded and not counted in the distance
+calculations. The user can decide to use either N1 <code class="docutils literal"><span class="pre">--useNOelectron</span></code>
+or the geometric midpointis N1 and O1  <code class="docutils literal"><span class="pre">--no-useNOelectron</span></code>  to calculate
+the distances. For further explanations see the <code class="docutils literal"><span class="pre">--help</span></code> option.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logos/mdanalysis-logo-200x150.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=MDAnalysis&repo=RotamerConvolveMD&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using RotamerConvolveMD</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="background.html" title="previous chapter">Background</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Philip W. Fowler, Oliver Beckstein, Katrin Reichel, Max Linke, Lukas Stelzl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/MDAnalysis/RotamerConvolveMD" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
