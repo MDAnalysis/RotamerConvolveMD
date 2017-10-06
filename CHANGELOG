@@ -13,12 +13,13 @@ The rules for this file:
 
 ??/??/2017 katrinr, orbeckst
   * 1.3.0
-    - compatible with MDAnalysis 0.16.2 (Issue #20)
+    - compatible with MDAnalysis 0.16.2, which is now the required version
+      (Issue #20)
     - new script 'convolve-mtss-rotamers_pre.py' for analysis of
       paramagnetic relaxation enhancement (PRE) experiments (PR #12)
     - added --no-plot flag to suppress PDF output from scripts (requested
       in issue #19)
-	
+        
 05/24/2016 kain88-de, philipwfowler, orbeckst, katrinr
   * 1.2.0
     - compatible with MDAnalysis >= 0.11.0 (issue #2)
