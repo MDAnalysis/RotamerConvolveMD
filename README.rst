@@ -16,9 +16,8 @@
 .. _AUTHORS:
    https://raw.githubusercontent.com/MDAnalysis/RotamerConvolveMD/master/AUTHORS
 
-This package contains the *MTSL rotamer library R1A_298K* provided by
-`Gunnar Jeschke`_, which is also published under the GPL with his
-permission.
+This package contains the *MTSL rotamer library R1A_298K (2011)* and an *updated MTSL
+rotamer library R1A_298K (povided in 2017)* provided by `Gunnar Jeschke`_, which is also published under the GPL with his permission. The updated rotamer library was sent by `Gunnar Jeschke`_ after personal discussion.
 
 Summary
 =======
