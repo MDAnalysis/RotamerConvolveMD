@@ -99,8 +99,8 @@ class RotamerDistances(RotamerDistancesBase):
            *histogramBins*
              tuple ``(dmin, dmax, delta)`` in Ångström [``(0.0, 100.0, 1.0)``]
            *useNOelectron*
-            True = N1 atoms used distance measurements,
-            False = geometic midpoints of N1 and O1 atoms used for distance calculation
+            True = geometic midpoints of N1 and O1 atoms used for distance calculation
+            False = N1 atoms used distance measurements,
         """
         proteinStructure = args[0]
         residues = args[1]

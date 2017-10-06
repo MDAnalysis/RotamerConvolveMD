@@ -55,8 +55,8 @@ class RotamerDistances(RotamerDistancesBase):
               and protein atoms is < *clashDistance*. Values down to
               1.5 Å are reasonable. The default is conservative. [``2.2`` Å]
            *useNOelectron*
-            True = N1 atoms are used for distance measurement,
-            False = geometic midpoints of N1 and O1 atoms are used for distance calculation
+            True = geometic midpoints of N1 and O1 atoms are used for distance calculation
+            False = N1 atoms are used for distance measurement,
         """
         proteinStructure = args[0]
         residue = args[1]
