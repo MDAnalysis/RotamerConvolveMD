@@ -11,7 +11,8 @@
             © 2014–2016 AUTHORS_
 :Citation:  LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. J Mol Biol
             426 (2014), 735-751. doi: 10.1016/j.jmb.2013.10.024
-
+:Documentation: |docs|
+	    
 .. _AUTHORS:
    https://raw.githubusercontent.com/MDAnalysis/RotamerConvolveMD/master/AUTHORS
 
@@ -28,6 +29,9 @@ double electron-electron resonance (DEER) experiments and spin-label to amide pr
 probed in paramagnetic relaxation enhancement (PRE) experiments. The spin labels
 are fitted on trajectories and the spin label mobility is taken into
 account using a rotamer library.
+
+For further details see the `RotamerConvolveMD documentation`_.
+
 
 
 Background
@@ -88,9 +92,9 @@ Examples of the application of this approach can be found in
 Installation
 ============
 
-Typically, install the package with ::
+Typically, install the package with pip_ ::
 
-   python setup.py install --user
+   pip install RotamerConvolveMD
 
 (see also the file ``INSTALL.rst``)
 
@@ -200,13 +204,23 @@ References
 .. Links
 .. -----
 
+.. _`RotamerConvolveMD documentation`:
+   https://www.mdanalysis.org/RotamerConvolveMD
 .. _MDAnalysis: http://www.mdanalysis.org
 .. _Gunnar Jeschke: http://www.epr.ethz.ch/
 .. _topology format: 
    https://pythonhosted.org/MDAnalysis/documentation_pages/topology/init.html#supported-topology-formats
 .. _trajectory format:
    https://pythonhosted.org/MDAnalysis/documentation_pages/coordinates/init.html#id1
+.. _pip: https://pip.pypa.io/
 
+.. Badges
+.. ------
+.. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
+   :alt: Documentation (latest release)
+   :target: `RotamerConvolveMD documentation`_
+
+   
 .. Articles
 .. --------
 
