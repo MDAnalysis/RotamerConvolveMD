@@ -6,6 +6,9 @@ MDAnalysis.log
 doc/example/dat
 doc/example/dcd
 
+# docs
+doc/sphinx/build
+
 # C extensions
 *.so
 
@@ -40,3 +43,5 @@ nosetests.xml
 .project
 .pydevproject
 
+# other rubbish
+.DS_Store
