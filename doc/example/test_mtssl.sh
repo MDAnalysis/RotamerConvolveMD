@@ -20,6 +20,7 @@ convolve-mtss-rotamers.py \
     --dcdfilename "dcd/peptso-xrd" \
     --dcdfilenameNoClashes "dcd/peptso-xrd" \
     --useNOelectron \
+    --libname "MTSSL 298K 2017" \
     peptso.gro 
 
 

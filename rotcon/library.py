@@ -34,16 +34,16 @@ LIBRARIES = {
     'MTSSL 298K 2011': {
         'topology': "rotamer1_R1A_298K_2011.pdb",
         'ensemble': "rotamer1_R1A_298K_2011.dcd",
-        'populations': "R1A_298K_populations.dat",
+        'populations': "R1A_298K_populations_2011.dat",
         'author': "Gunnar Jeschke",
         'licence': "GPL v2",
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "
                     "Phys Chem Chem Phys. 2011; 13(6):2356-2366. doi: 10.1039/c0cp01865a",
     },
-    'MTSSL 298K': {
-        'topology': "rotamer1_R1A_298K.pdb",
-        'ensemble': "rotamer1_R1A_298K.dcd",
-        'populations': "R1A_298K_populations.dat",
+    'MTSSL 298K 2017': {
+        'topology': "rotamer1_R1A_298K_2017.pdb",
+        'ensemble': "rotamer1_R1A_298K_2017.dcd",
+        'populations': "R1A_298K_populations_2017.dat",
         'author': "Gunnar Jeschke",
         'licence': "GPL v2",
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "

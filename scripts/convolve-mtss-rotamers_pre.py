@@ -53,7 +53,7 @@ if __name__ == "__main__":
         parser.add_option("--dcdfilenameNoClashes", dest="dcdFilenameNoClashes", metavar="FILENAME",
                           help="the path and stem of the DCD files of the fitted MTSL rotamers "
                                "without clashes")
-        parser.add_option("--libname", dest="libname", metavar="NAME", default="MTSSL 298K",
+        parser.add_option("--libname", dest="libname", metavar="NAME", default="MTSSL 298K 2017",
                           help="name of the rotamer library [%default]")
         parser.add_option("--plotname", dest="plotname", metavar="FILENAME", default=None,
                           help="plot the histogram to FILENAME (the extensions determines the format) "
