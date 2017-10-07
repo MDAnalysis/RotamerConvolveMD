@@ -40,15 +40,15 @@ LIBRARIES = {
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "
                     "Phys Chem Chem Phys. 2011; 13(6):2356-2366. doi: 10.1039/c0cp01865a",
     },
-    'MTSSL 298K 2017': {
-        'topology': "rotamer1_R1A_298K_2017.pdb",
-        'ensemble': "rotamer1_R1A_298K_2017.dcd",
-        'populations': "R1A_298K_populations_2017.dat",
+    'MTSSL 298K 2015': {
+        'topology': "rotamer1_R1A_298K_2015.pdb",
+        'ensemble': "rotamer1_R1A_298K_2015.dcd",
+        'populations': "R1A_298K_populations_2015.dat",
         'author': "Gunnar Jeschke",
         'licence': "GPL v2",
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "
                     "Phys Chem Chem Phys. 2011; 13(6):2356-2366. doi: 10.1039/c0cp01865a",
-        'information': "updated version of the rotamer library from Polyhach et al. 2011"
+        'information': "updated version of the MTSSL rotamer library from 2015"
     },
 }
 

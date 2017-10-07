@@ -17,7 +17,7 @@
    https://raw.githubusercontent.com/MDAnalysis/RotamerConvolveMD/master/AUTHORS
 
 This package contains the *MTSL rotamer library R1A_298K (2011)* and an *updated MTSL
-rotamer library R1A_298K (povided in 2017)* provided by `Gunnar Jeschke`_, which is also published under the GPL with his permission. The updated rotamer library was sent by `Gunnar Jeschke`_ after personal discussion.
+rotamer library R1A_298K (2015)* provided by `Gunnar Jeschke`_, which is also published under the GPL with his permission. The updated rotamer library was sent by `Gunnar Jeschke`_ after personal discussion.
 
 Summary
 =======
@@ -137,7 +137,7 @@ a typical invocation::
         --dcdfilename "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
         --useNOelectron \
-        --libname "MTSSL 298K 2017" \
+        --libname "MTSSL 298K 2015" \
         peptso.gro peptso.xtc
 
 It loads the MD trajectory from the topology ``peptso.gro`` and the
@@ -149,7 +149,7 @@ will be discarded and not counted in the distance calculations.
 The user can decide to use either N1 ``--no-useNOelectron`` or the 
 geometric midpointis N1 and O1  ``--useNOelectron``  to calculate 
 the distances. Two libraries are offered: `MTSSL 298K 2011` or 
-`MTSSL 298K 2017` (default) by defining the option ``--libname``. 
+`MTSSL 298K 2015` (default) by defining the option ``--libname``. 
 For further explanations see the ``--help`` option.
 
 For an example, see ``doc/example`` in the source distribution. The
@@ -179,7 +179,7 @@ a typical invocation::
         --dcdfilenameAll "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
         --useNOelectron \
-        --libname "MTSSL 298K 2017" \
+        --libname "MTSSL 298K 2015" \
         peptso.gro peptso.xtc 
 
 The ``--resid`` is required and denotes the residue number (in the topology) 
@@ -189,7 +189,7 @@ the ``--clashDistance`` will be discarded and not counted in the distance
 calculations. The user can decide to use either N1 ``--no-useNOelectron`` 
 or the geometric midpointis N1 and O1  ``--useNOelectron``  to calculate 
 the distances. Two libraries are offered: `MTSSL 298K 2011` or 
-`MTSSL 298K 2017` (default) by defining the option ``--libname``. 
+`MTSSL 298K 2015` (default) by defining the option ``--libname``. 
 For further explanations see the ``--help`` option.
 
 

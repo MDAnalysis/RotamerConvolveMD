@@ -18,7 +18,7 @@ The rules for this file:
       paramagnetic relaxation enhancement (PRE) experiments (PR #12)
     - added --no-plot flag to suppress PDF output from scripts (requested
       in issue #19)
-    - updated MTSSL rotamer library from 2017 (default), rotamer library from 2011 can be chosen by defining the library name (--libname)
+    - updated MTSSL rotamer library in 2017 (default), rotamer library from 2011 can be chosen by defining the library name (--libname)
 	
 05/24/2016 kain88-de, philipwfowler, orbeckst, katrinr
   * 1.2.0

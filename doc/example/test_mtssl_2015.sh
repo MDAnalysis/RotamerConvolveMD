@@ -20,10 +20,10 @@ convolve-mtss-rotamers.py \
     --dcdfilename "dcd/peptso-xrd" \
     --dcdfilenameNoClashes "dcd/peptso-xrd" \
     --useNOelectron \
-    --libname "MTSSL 298K 2017" \
+    --libname "MTSSL 298K 2015" \
     peptso.gro 
 
 
-diff reference_NO/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
+diff reference_NO_2015/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
 test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."
 
