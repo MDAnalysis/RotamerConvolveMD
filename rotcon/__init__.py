@@ -11,11 +11,11 @@
 :mod:`rotcon` --- Convolve Rotamers
 ===================================
 
-:Author:    Philip W Fowler, Oliver Beckstein and AUTHORS_
-:Year:      2013
+:Author:    Philip W Fowler, Katrin Reichel, Oliver Beckstein and AUTHORS_
+:Year:      2013--2017
 :Licence:   GNU Public Licence, version 2 (or higher)
 :Copyright: © 2013 Philip W Fowler, Oliver Beckstein,
-            © 2014–2016 AUTHORS_
+            © 2014–2017 AUTHORS_
 :Citation:  LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. J Mol Biol
             426 (2014), 735-751. doi: 10.1016/j.jmb.2013.10.024
 
@@ -198,3 +198,14 @@ VERSION = 1, 3, 0, "dev"
 
 def get_version_string():
     return ".".join([str(x) for x in VERSION])
+
+def get_info_string(version=get_version_string()):
+    return ("Rotamer Convolve MD, release {0} --- Copyright (c) Philip W Fowler, " +
+            "Oliver Beckstein, Katrin Reichel, and AUTHORS 2011-2017".format(version))
+
+def get_license_string():
+    return "Released under the GNU Public Licence, version 2 (or higher)"
+
+def get_citation_string():
+    return ("Please cite: LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. " +
+            "J Mol Biol 426 (2014), 735-751, doi:10.1016/j.jmb.2013.10.024")

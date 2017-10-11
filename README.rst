@@ -4,11 +4,11 @@
  MTSL Rotamer fitting to trajectories
 ======================================
 
-:Author:    Philip W Fowler, Oliver Beckstein and AUTHORS_
+:Author:    Philip W Fowler, Oliver Beckstein, Katrin Reichel, and AUTHORS_
 :Year:      2013
 :Licence:   GNU Public Licence, version 2 (or higher)
 :Copyright: © 2013 Philip W Fowler, Oliver Beckstein,
-            © 2014–2016 AUTHORS_
+            © 2014–2017 AUTHORS_
 :Citation:  LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. J Mol Biol
             426 (2014), 735-751. doi: 10.1016/j.jmb.2013.10.024
 :Documentation: |docs|
@@ -16,18 +16,22 @@
 .. _AUTHORS:
    https://raw.githubusercontent.com/MDAnalysis/RotamerConvolveMD/master/AUTHORS
 
-This package contains the *MTSL rotamer library R1A_298K (2011)* and an *updated MTSL
-rotamer library R1A_298K (2015)* provided by `Gunnar Jeschke`_, which is also published under the GPL with his permission. The updated rotamer library was sent by `Gunnar Jeschke`_ after personal discussion.
+This package contains the *MTSL rotamer library R1A_298K (2011)* and
+an *updated MTSL rotamer library R1A_298K (2015)* provided by `Gunnar
+Jeschke`_, which is also published under the GPL with his
+permission. The updated rotamer library was sent by `Gunnar Jeschke`_
+after personal discussion.
 
 Summary
 =======
 
 This package analyses molecular dynamics trajectories or
 conformational ensembles in terms of spin-label distances as probed in
-double electron-electron resonance (DEER) experiments and spin-label to amide protin distances as
-probed in paramagnetic relaxation enhancement (PRE) experiments. The spin labels
-are fitted on trajectories and the spin label mobility is taken into
-account using a rotamer library.
+double electron-electron resonance (DEER) experiments and spin-label
+to amide protin distances as probed in paramagnetic relaxation
+enhancement (PRE) experiments. The spin labels are fitted on
+trajectories and the spin label mobility is taken into account using a
+rotamer library.
 
 For further details see the `RotamerConvolveMD documentation`_.
 
@@ -36,26 +40,27 @@ For further details see the `RotamerConvolveMD documentation`_.
 Background
 ==========
 
-Site-directed spin labeling (SDSL) is a common technique to investigate 
-structure and dynamics of macromolecular systems. Covalentry attached 
-spin labels are introduced to the system and induce electron spin resonance. 
-Double electron electron spin resonance (DEER) is an EPR technique for
-measuring distances between two spin labels that have been covalently
-attached to a protein. Two cysteine residues are introduced into the
-protein and subsequently labelled. Paramagnetic relaxation enhancement 
-(PRE) is an NMR technique for measuring distances between a spin label 
-and the amide protons of the protein backbone. One cysteine residue is 
-introduced at the position of the label The positions 
-are chosen to report on the expected conformational change. A commonly 
-used spin label is (1-oxyl-2,2,5,5-tetramethylpyrroline-3-methyl)-methanethiosulfonate
+Site-directed spin labeling (SDSL) is a common technique to
+investigate structure and dynamics of macromolecular
+systems. Covalentry attached spin labels are introduced to the system
+and induce electron spin resonance.  Double electron electron spin
+resonance (DEER) is an EPR technique for measuring distances between
+two spin labels that have been covalently attached to a protein. Two
+cysteine residues are introduced into the protein and subsequently
+labelled. Paramagnetic relaxation enhancement (PRE) is an NMR
+technique for measuring distances between a spin label and the amide
+protons of the protein backbone. One cysteine residue is introduced at
+the position of the label The positions are chosen to report on the
+expected conformational change. A commonly used spin label is
+(1-oxyl-2,2,5,5-tetramethylpyrroline-3-methyl)-methanethiosulfonate
 (MTSL). MTSL has a linker with five rotatable bonds and is therefore
-very flexible. The distance distributions between the two spin labels 
-(DEER) or one spin label and the amide protons are measured by 
+very flexible. The distance distributions between the two spin labels
+(DEER) or one spin label and the amide protons are measured by
 experiments are typically broad and often multi-modal. The
 distributions are therefore a convolution of the flexibility of the
 MTSL spin label and the conformational spread of the proteins in the
 sample. To ensure that we compared like with like we developed a
-method that 
+method that
 
 1. maps rotamer libraries of the MTSL spin label onto each position,
 

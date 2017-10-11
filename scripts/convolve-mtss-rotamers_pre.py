@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Convolve spin label rotamers with MD trajectories.
-# Copyright (c) 2011-2013 Philip Fowler
+# Convolve PRE spin label rotamers with MD trajectories.
+# Copyright (c) 2011-2017 Philip Fowler and AUTHORS
 # Published under the GNU Public Licence, version 2 (or higher)
 #
 # Includes a rotamer library for MTSSL at 298 K by Gunnar Jeschke,
@@ -9,7 +9,7 @@
 %prog [options] TOPOLOGY TRAJECTORY [TRAJECTORY ...]
        %prog [options] STRUCTURE
 
-Calculate a distribution of spin label distances from an MD trajectory
+Calculate a distribution of PRE spin label distances from an MD trajectory
 or an arbitrary ensemble of conformations by fitting Gunnar Jeschke's
 rotamer library of MTSS (at 298 K).
 
@@ -70,11 +70,9 @@ if __name__ == "__main__":
         options, args = parser.parse_args()
 
         MDAnalysis.start_logging()
-        logger.info("Rotamer Convolve MD, release {0} --- Copyright (c) Philip W Fowler, "
-                    "Oliver Beckstein 2011-2013 and see AUTHORS".format(rotcon.get_version_string()))
-        logger.info("Released under the GNU Public Licence, version 2 (or higher)")
-        logger.info("Please cite: LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. "
-                    "J Mol Biol 426 (2014), 735-751, doi:10.1016/j.jmb.2013.10.024")
+        logger.info(rotcon.get_info_string())
+        logger.info(rotcon.get_license_string())
+        logger.info(rotcon.get_citation_string())
 
         # load the reference protein structure
         try:
