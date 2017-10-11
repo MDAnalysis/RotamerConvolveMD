@@ -14,16 +14,17 @@ Run the DEER example from this directory::
         --dcdfilename "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
         --useNOelectron \	
+        --libname "MTSSL 298K 2015" \
         peptso.gro 
 
 Compare the output to the reference::
 
-   diff reference/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
+   diff reference_NO_2015/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
 
 You can also look at the PDF of the distance histogram and compare to
 reference/peptso-xrd-47-330.pdf.
 
-The above test can be run by executing the script ``test_mtssl.sh``.
+The above test can be run by executing the script ``test_mtssl_2015.sh``.
 
 
 --------------------------
@@ -39,15 +40,16 @@ Run the PRE example from this directory::
         --outputRawDistances "dat/peptso-xrd" \
         --dcdfilenameAll "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
+        --libname "MTSSL 298K 2015" \
         peptso.gro 
 
 Compare the output to the reference::
 
-   diff reference/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
+   diff reference_pre_NO_2015/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
 
 You can also look at the PDF of the distance histogram and compare to
 reference_pre/peptso-xrd-47.pdf.
 
-The above test can be run by executing the script ``test_mtssl_pre.sh``.
+The above test can be run by executing the script ``test_mtssl_pre_2015.sh``.
 
   

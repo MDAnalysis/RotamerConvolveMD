@@ -19,7 +19,9 @@ The rules for this file:
       paramagnetic relaxation enhancement (PRE) experiments (PR #12)
     - added --no-plot flag to suppress PDF output from scripts (requested
       in issue #19)
-        
+    - updated MTSSL rotamer library in 2017 (default), rotamer library
+      from 2011 can be chosen by defining the library name (--libname)
+
 05/24/2016 kain88-de, philipwfowler, orbeckst, katrinr
   * 1.2.0
     - compatible with MDAnalysis >= 0.11.0 (issue #2)
@@ -41,5 +43,5 @@ The rules for this file:
 01/15/15  philipwfowler, orbeckst, alejob
   * 1.0
     - initial release
-    - includes Gunnar Jeschke's rotamers for MTSS at 298 K
+    - includes Gunnar Jeschke's rotamers for MTSSL at 298 K
     - used for work published in Stelzl et al, J Mol Biol 426 (2016), 735
