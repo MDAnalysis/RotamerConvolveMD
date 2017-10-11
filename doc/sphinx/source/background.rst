@@ -37,7 +37,7 @@ method that
 4. thereby estimates a distance distribution for that structure. 
 
 The code was written in Python using the MDAnalysis_ library
-[Michaud-Agrawal2011]_ and a published rotamer library for MTSL
+[Michaud-Agrawal2011]_ and rotamer libraries for MTSL (2011, 2015)
 [Polyhach2011]_.
 
 Our approach improves upon the existing method [Polyhach2011]_ by

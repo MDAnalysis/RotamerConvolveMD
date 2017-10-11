@@ -18,8 +18,9 @@ convolve-mtss-rotamers_pre.py \
     --dcdfilenameAll "dcd/peptso-xrd" \
     --dcdfilenameNoClashes "dcd/peptso-xrd" \
     --useNOelectron \
+    --libname "MTSSL 298K 2015" \
     peptso.gro 
 
 
-diff reference_pre_NO/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
+diff reference_pre_NO_2015/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
 test $? -eq 0 && echo "Test PASSED" || echo "Test FAILED."

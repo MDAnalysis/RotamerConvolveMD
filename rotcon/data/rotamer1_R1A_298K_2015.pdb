@@ -1,0 +1,77 @@
+MODEL     
+HETATM    1  C   R1A A   1      28.813  -9.824  18.437  0.02 78.96           C
+HETATM    2  CA  R1A A   1      29.585 -11.103  18.751  0.02 78.96           C
+HETATM    3  N   R1A A   1      30.935 -11.130  18.213  0.02 78.96           N
+HETATM    4  CB  R1A A   1      29.613 -11.374  20.269  0.02 78.96           C
+HETATM    5  SG  R1A A   1      30.355 -12.979  20.781  0.02 78.96           S
+HETATM    6  SD  R1A A   1      28.885 -14.350  20.223  0.02 78.96           S
+HETATM    7  CE  R1A A   1      27.797 -14.438  21.738  0.02 78.96           C
+HETATM    8  C3  R1A A   1      28.431 -15.342  22.750  0.02 78.96           C
+HETATM    9  C2  R1A A   1      28.070 -16.817  22.888  0.02 78.96           C
+HETATM   10  C9  R1A A   1      26.609 -17.090  23.289  0.02 78.96           C
+HETATM   11  C8  R1A A   1      28.445 -17.646  21.644  0.02 78.96           C
+HETATM   12  C4  R1A A   1      29.367 -14.975  23.641  0.02 78.96           C
+HETATM   13  C5  R1A A   1      29.813 -16.099  24.542  0.02 78.96           C
+HETATM   14  C7  R1A A   1      29.485 -15.855  26.027  0.02 78.96           C
+HETATM   15  C6  R1A A   1      31.299 -16.463  24.371  0.02 78.96           C
+HETATM   16  N1  R1A A   1      28.964 -17.200  24.016  0.02 78.96           N
+HETATM   17  O1  R1A A   1      29.012 -18.376  24.477  0.02 78.96           O
+HETATM   18  O   R1A A   1      29.272  -8.922  17.780  0.02 78.96           O
+HETATM   19  HA  R1A A   1      29.017 -11.939  18.298  0.02 78.96           H
+HETATM   20  H   R1A A   1      30.892 -11.082  17.193  0.02 78.96           H
+HETATM   21  HB2 R1A A   1      28.597 -11.398  20.701  0.02 78.96           H
+HETATM   22  HB3 R1A A   1      30.153 -10.547  20.752  0.02 78.96           H
+HETATM   23  HE2 R1A A   1      26.814 -14.813  21.421  0.02 78.96           H
+HETATM   24  HE3 R1A A   1      27.677 -13.416  22.123  0.02 78.96           H
+HETATM   25  H91 R1A A   1      25.915 -16.913  22.453  0.02 78.96           H
+HETATM   26  H92 R1A A   1      26.527 -18.145  23.594  0.02 78.96           H
+HETATM   27  H93 R1A A   1      26.304 -16.457  24.136  0.02 78.96           H
+HETATM   28  H81 R1A A   1      27.760 -17.441  20.807  0.02 78.96           H
+HETATM   29  H82 R1A A   1      29.475 -17.431  21.320  0.02 78.96           H
+HETATM   30  H83 R1A A   1      28.376 -18.714  21.896  0.02 78.96           H
+HETATM   31  H4  R1A A   1      29.787 -13.969  23.725  0.02 78.96           H
+HETATM   32  H71 R1A A   1      29.654 -16.785  26.591  0.02 78.96           H
+HETATM   33  H72 R1A A   1      30.127 -15.064  26.445  0.02 78.96           H
+HETATM   34  H73 R1A A   1      28.434 -15.558  26.155  0.02 78.96           H
+HETATM   35  H61 R1A A   1      31.505 -17.405  24.903  0.02 78.96           H
+HETATM   36  H62 R1A A   1      31.553 -16.602  23.309  0.02 78.96           H
+HETATM   37  H63 R1A A   1      31.946 -15.673  24.786  0.02 78.96           H
+CONECT    1    2   18
+CONECT    2    1    3    4   19
+CONECT    3    2   20
+CONECT    4    2    5   21   22
+CONECT    5    4    6
+CONECT    6    5    7
+CONECT    7    6    8   23   24
+CONECT    8    7    9   12
+CONECT    9    8   10   11   16
+CONECT   10    9   25   26   27
+CONECT   11    9   28   29   30
+CONECT   12    8   13   31
+CONECT   13   12   14   15   16
+CONECT   14   13   32   33   34
+CONECT   15   13   35   36   37
+CONECT   16    9   13   17
+CONECT   17   16
+CONECT   18    1
+CONECT   19    2
+CONECT   20    3
+CONECT   21    4
+CONECT   22    4
+CONECT   23    7
+CONECT   24    7
+CONECT   25   10
+CONECT   26   10
+CONECT   27   10
+CONECT   28   11
+CONECT   29   11
+CONECT   30   11
+CONECT   31   12
+CONECT   32   14
+CONECT   33   14
+CONECT   34   14
+CONECT   35   15
+CONECT   36   15
+CONECT   37   15
+TER
+ENDMDL

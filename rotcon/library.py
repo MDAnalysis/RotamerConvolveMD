@@ -34,21 +34,21 @@ LIBRARIES = {
     'MTSSL 298K 2011': {
         'topology': "rotamer1_R1A_298K_2011.pdb",
         'ensemble': "rotamer1_R1A_298K_2011.dcd",
-        'populations': "R1A_298K_populations.dat",
+        'populations': "R1A_298K_populations_2011.dat",
         'author': "Gunnar Jeschke",
         'licence': "GPL v2",
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "
                     "Phys Chem Chem Phys. 2011; 13(6):2356-2366. doi: 10.1039/c0cp01865a",
     },
-    'MTSSL 298K': {
-        'topology': "rotamer1_R1A_298K.pdb",
-        'ensemble': "rotamer1_R1A_298K.dcd",
-        'populations': "R1A_298K_populations.dat",
+    'MTSSL 298K 2015': {
+        'topology': "rotamer1_R1A_298K_2015.pdb",
+        'ensemble': "rotamer1_R1A_298K_2015.dcd",
+        'populations': "R1A_298K_populations_2015.dat",
         'author': "Gunnar Jeschke",
         'licence': "GPL v2",
         'citation': "Polyhach Y, Bordignon E, Jeschke G. "
                     "Phys Chem Chem Phys. 2011; 13(6):2356-2366. doi: 10.1039/c0cp01865a",
-        'information': "updated version of the rotamer library from Polyhach et al. 2011"
+        'information': "updated version of the MTSSL rotamer library from 2015"
     },
 }
 
