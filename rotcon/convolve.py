@@ -2,7 +2,7 @@
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8
 #
 # Convolve MTSS rotamers with MD trajectory.
-# Copyright (c) 2011-2013 Philip Fowler, Oliver Beckstein
+# Copyright (c) 2011-2017 Philip Fowler and AUTHORS
 # Published under the GNU Public Licence, version 2 (or higher)
 #
 # Includes a rotamer library for MTSS at 298 K by Gunnar Jeschke,
@@ -48,7 +48,7 @@ class RotamerDistancesBase(object):
         """Detect any rotamer that clashes with the protein."""
         # make a KD tree of the protein neighbouring atoms
         proteinNotSite = protein.select_atoms("protein and not (name H* or name [123]H or type H) "
-                                              "and not (resid " + str(site_resid) + 
+                                              "and not (resid " + str(site_resid) +
                                               " or (resid " + str(site_resid-1) + " and (name C or name O)) "
                                               "or (resid " + str(site_resid+1) + " and (name N or name CA)))")
         proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)

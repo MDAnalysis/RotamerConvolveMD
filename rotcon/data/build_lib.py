@@ -26,11 +26,9 @@ import MDAnalysis
 from itertools import izip
 
 
-# NOTE: Does not work at the moment. See https://github.com/MDAnalysis/mdanalysis/issues/859
-
-def build_trr(trr="./rotamer1_R1A_298K.trr"):
-    L = MDAnalysis.Universe("./rotamer1_R1A_298K.pdb", "./rotamer1_R1A_298K.dcd")
-    pop = np.loadtxt("R1A_298K_populations.dat")
+def build_trr(trr="./rotamer1_R1A_298K_2011.trr"):
+    L = MDAnalysis.Universe("./rotamer1_R1A_298K_2011.pdb", "./rotamer1_R1A_298K_2011.dcd")
+    pop = np.loadtxt("R1A_298K_populations_2011.dat")
     with MDAnalysis.Writer(trr, L.atoms.n_atoms) as W:
         for ts, p in izip(L.trajectory, pop):
             ts.lmbda = p  # add lambda for TRR
@@ -38,10 +36,10 @@ def build_trr(trr="./rotamer1_R1A_298K.trr"):
     return trr
 
 
-def test(trr="rotamer1_R1A_298K.trr"):
-    u = MDAnalysis.Universe("rotamer1_R1A_298K.pdb", trr)
+def test(trr="rotamer1_R1A_298K_2011.trr"):
+    u = MDAnalysis.Universe("rotamer1_R1A_298K_2011.pdb", trr)
     pp = np.array([ts.lmbda for ts in u.trajectory])
-    ref = np.loadtxt("R1A_298K_populations.dat")
+    ref = np.loadtxt("R1A_298K_populations_2011.dat")
     assert np.abs(pp - ref).max() < 1e-10
 
 if __name__ == "__main__":
@@ -50,7 +48,7 @@ if __name__ == "__main__":
                                                  ' from the original DCD and dat files.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('filename', nargs="?",
-                        default="./rotamer1_R1A_298K.trr",
+                        default="./rotamer1_R1A_298K_2011.trr",
                         help="Write library to TRR filename")
     args = parser.parse_args()
     trr = build_trr(trr=args.filename)

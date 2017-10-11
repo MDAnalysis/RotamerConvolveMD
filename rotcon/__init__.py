@@ -2,7 +2,7 @@
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4 fileencoding=utf-8
 #
 # Convolve MTSS rotamers with MD trajectory.
-# Copyright (c) 2011-2013 Philip Fowler, Oliver Beckstein
+# Copyright (c) 2011-2017 Philip Fowler and AUTHORS
 # Published under the GNU Public Licence, version 2 (or higher)
 #
 # Includes a rotamer library for MTSS at 298 K by Gunnar Jeschke,
@@ -201,7 +201,7 @@ def get_version_string():
 
 def get_info_string(version=get_version_string()):
     return ("Rotamer Convolve MD, release {0} --- Copyright (c) Philip W Fowler, " +
-            "Oliver Beckstein, Katrin Reichel, and AUTHORS 2011-2017".format(version))
+            "Oliver Beckstein, Katrin Reichel, and AUTHORS 2011-2017").format(version)
 
 def get_license_string():
     return "Released under the GNU Public Licence, version 2 (or higher)"
