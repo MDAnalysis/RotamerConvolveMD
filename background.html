@@ -28,7 +28,7 @@
     <link rel="shortcut icon" href="_static/mdanalysis-logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Using RotamerConvolveMD" href="usage.html" />
+    <link rel="next" title="Rotamer libraries" href="libraries.html" />
     <link rel="prev" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -50,23 +50,29 @@
 <p>Site-directed spin labeling (SDSL) is a common technique to
 investigate structure and dynamics of macromolecular
 systems. Covalentry attached spin labels are introduced to the system
-and induce electron spin resonance.  Double electron electron spin
-resonance (DEER) is an EPR technique for measuring distances between
-two spin labels that have been covalently attached to a protein. Two
-cysteine residues are introduced into the protein and subsequently
-labelled. Paramagnetic relaxation enhancement (PRE) is an NMR
-technique for measuring distances between a spin label and the amide
-protons of the protein backbone. One cysteine residue is introduced at
-the position of the label The positions are chosen to report on the
-expected conformational change. A commonly used spin label is
+and induce electron spin resonance.</p>
+<p><em>Double electron electron spin resonance</em> (<strong>DEER</strong>) is an <a class="reference external" href="https://en.wikipedia.org/wiki/Electron_paramagnetic_resonance">EPR</a>
+technique for measuring distances between two spin labels that have
+been covalently attached to a protein. Two cysteine residues are
+introduced into the protein and subsequently labelled.</p>
+<p><em>Paramagnetic relaxation enhancement</em> (<strong>PRE</strong>) is an <a class="reference external" href="https://en.wikipedia.org/wiki/Nuclear_magnetic_resonance">NMR</a> technique for
+measuring distances between a spin label and the amide protons of the
+protein backbone. One cysteine residue is introduced at the position
+of the label.</p>
+<p>The positions are chosen to report on the expected conformational
+change. A commonly used spin label is
 (1-oxyl-2,2,5,5-tetramethylpyrroline-3-methyl)-methanethiosulfonate
 (MTSL). MTSL has a linker with five rotatable bonds and is therefore
-very flexible. The distance distributions between the two spin labels
-(DEER) or one spin label and the amide protons are measured by
-experiments are typically broad and often multi-modal. The
-distributions are therefore a convolution of the flexibility of the
-MTSL spin label and the conformational spread of the proteins in the
-sample. To ensure that we compared like with like we developed a
+very flexible.</p>
+<div class="section" id="method">
+<h2>Method<a class="headerlink" href="#method" title="Permalink to this headline">¶</a></h2>
+<p>The distance distributions between the two spin labels (DEER) or one
+spin label and the amide protons are measured by experiments (PRE) are
+typically broad and often multi-modal. The distributions are therefore
+a convolution of the flexibility of the MTSL spin label and the
+conformational spread of the proteins in the sample. In order to
+compare a structural ensemble (e.g., from MD simulations or modelling)
+to experimental DEER or PRE data, we developed a post-processing
 method that</p>
 <ol class="arabic simple">
 <li>maps rotamer libraries of the MTSL spin label onto each position,</li>
@@ -77,9 +83,9 @@ rotamers and</li>
 <li>thereby estimates a distance distribution for that structure.</li>
 </ol>
 <p>The code was written in Python using the <a class="reference external" href="https://www.mdanalysis.org">MDAnalysis</a> library
-<a class="reference internal" href="index.html#michaud-agrawal2011" id="id1">[Michaud-Agrawal2011]</a> and a published rotamer library for MTSL
-<a class="reference internal" href="index.html#polyhach2011" id="id2">[Polyhach2011]</a>.</p>
-<p>Our approach improves upon the existing method <a class="reference internal" href="index.html#polyhach2011" id="id3">[Polyhach2011]</a> by
+<a class="reference internal" href="index.html#michaud-agrawal2011" id="id1">[Michaud-Agrawal2011]</a> <a class="reference internal" href="index.html#gowers2016" id="id2">[Gowers2016]</a> and <a class="reference internal" href="libraries.html#rotamer-libraries"><span class="std std-ref">Rotamer libraries</span></a> for
+MTSL (2011, 2015) <a class="reference internal" href="index.html#polyhach2011" id="id3">[Polyhach2011]</a>.</p>
+<p>Our approach improves upon the existing method <a class="reference internal" href="index.html#polyhach2011" id="id4">[Polyhach2011]</a> by
 increasing computational efficiency and implementing, via the
 MDAnalysis library, analysis of ensembles of hundreds of structures,
 which allowed us to estimate distance distributions for entire
@@ -89,8 +95,13 @@ compare raw data without calculating the distances based on the
 experiment.</p>
 <p>In the case of MTSL, the distances are determined by considering the
 position of the free electron located between nitrogen (N1) and (O1).</p>
-<p>Examples of the application of this approach can be found in
-<a class="reference internal" href="index.html#stelzl2014" id="id4">[Stelzl2014]</a>.</p>
+</div>
+<div class="section" id="example-applications">
+<h2>Example applications<a class="headerlink" href="#example-applications" title="Permalink to this headline">¶</a></h2>
+<p>Examples of the application of this approach for comparing
+experimental DEER data to molecular dynamics (MD) simulations can be
+found in <a class="reference internal" href="index.html#stelzl2014" id="id5">[Stelzl2014]</a> and <a class="reference internal" href="index.html#fowler2015" id="id6">[Fowler2015]</a>.</p>
+</div>
 </div>
 
 
@@ -124,6 +135,7 @@ position of the free electron located between nitrogen (N1) and (O1).</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Rotamer libraries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using RotamerConvolveMD</a></li>
 </ul>
 
@@ -132,7 +144,7 @@ position of the free electron located between nitrogen (N1) and (O1).</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
-      <li>Next: <a href="usage.html" title="next chapter">Using RotamerConvolveMD</a></li>
+      <li>Next: <a href="libraries.html" title="next chapter">Rotamer libraries</a></li>
   </ul></li>
 </ul>
 </div>

@@ -60,7 +60,7 @@ Either form should automatically download required packages:
 * numpy_
 * MDAnalysis_
 
-.. Note:: The package requires at least MDAnalysis 0.11.0.
+.. Note:: The package requires at least MDAnalysis 0.16.2.
 
 Please see http://www.mdanalysis.org for hints if you have problems
 with the automatic installation of MDAnalysis_.

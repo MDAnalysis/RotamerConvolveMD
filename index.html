@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>RotamerConvolveMD documentation &#8212; RotamerConvolveMD 1.3.0 documentation</title>
+    <title>RotamerConvolveMD &#8212; RotamerConvolveMD 1.3.0 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -44,8 +44,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="rotamerconvolvemd-documentation">
-<h1>RotamerConvolveMD documentation<a class="headerlink" href="#rotamerconvolvemd-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="rotamerconvolvemd">
+<h1>RotamerConvolveMD<a class="headerlink" href="#rotamerconvolvemd" title="Permalink to this headline">¶</a></h1>
 <p>This package analyses molecular dynamics trajectories or
 conformational ensembles in terms of spin-label distances as probed in
 double electron-electron resonance (DEER) experiments and spin-label
@@ -54,36 +54,47 @@ enhancement (PRE) experiments. The spin labels are fitted on
 trajectories and the spin label mobility is taken into account using a
 rotamer library.</p>
 <p>When using this code please cite <a class="reference internal" href="#stelzl2014" id="id1">[Stelzl2014]</a> and <a class="reference internal" href="#polyhach2011" id="id2">[Polyhach2011]</a>.</p>
-<p>This package contains the <em>MTSL rotamer library R1A_298K</em> provided by
-<a class="reference external" href="http://www.epr.ethz.ch/">Gunnar Jeschke</a>, which is also published under the GPL with his
-permission.</p>
+<p>This package contains MTSL <a class="reference internal" href="libraries.html#rotamer-libraries"><span class="std std-ref">Rotamer libraries</span></a> provided by
+<a class="reference external" href="http://www.epr.ethz.ch/">Gunnar Jeschke</a> (published under the GPL with his permission).</p>
 <p>If you have questions or problems installing the package then ask on
 the MDAnalysis user mailing list:
 <a class="reference external" href="http://groups.google.com/group/mdnalysis-discussion">http://groups.google.com/group/mdnalysis-discussion</a></p>
 <p>Source code is available from
 <a class="reference external" href="https://github.com/MDAnalysis/RotamerConvolveMD">https://github.com/MDAnalysis/RotamerConvolveMD</a> under the open source
 GNU General Public License, version 2.</p>
-</div>
 <div class="section" id="content">
-<h1>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h1>
+<h2>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Rotamer libraries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using RotamerConvolveMD</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <table class="docutils citation" frame="void" id="michaud-agrawal2011" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[Michaud-Agrawal2011]</td><td>N. Michaud-Agrawal, E. J. Denning,
 T. B. Woolf, and O. Beckstein. MDAnalysis: A toolkit for the
 analysis of molecular dynamics simulations. J Comp Chem,
-32:2319-2327, 2011. doi:<a class="reference external" href="http://doi.org/10.1002/jcc.21787">10.1002/jcc.21787</a>.
+32:2319-2327, 2011. doi:<a class="reference external" href="https://doi.org/10.1002/jcc.21787">10.1002/jcc.21787</a>.
 <a class="reference external" href="https://www.mdanalysis.org">https://www.mdanalysis.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="gowers2016" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Gowers2016]</td><td>R. J. Gowers, M. Linke, J. Barnoud, T. J. E. Reddy, M. N. Melo, S. L.
+Seyler, D. L. Dotson, J. Domański, S. Buchoux, I. M. Kenney,
+and O. Beckstein. <a class="reference external" href="http://conference.scipy.org/proceedings/scipy2016/oliver_beckstein.html">MDAnalysis: A Python package for the
+rapid analysis of molecular dynamics
+simulations</a>. In S. Benthall and S. Rostrup, editors,
+Proceedings of the 15th Python in Science Conference,
+pages 102 – 109, Austin, TX, 2016. SciPy.</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="polyhach2011" rules="none">
@@ -92,7 +103,7 @@ analysis of molecular dynamics simulations. J Comp Chem,
 <tr><td class="label"><a class="fn-backref" href="#id2">[Polyhach2011]</a></td><td>Y. Polyhach, E. Bordignon, and G. Jeschke. Rotamer
 libraries of spin labelled cysteines for protein
 studies. Phys. Chem. Chem. Phys., 13:2356-2366, 2011.
-doi: <a class="reference external" href="http://dx.doi.org/10.1039/C0CP01865A">10.1039/C0CP01865A</a>.</td></tr>
+doi: <a class="reference external" href="https://doi.org/10.1039/C0CP01865A">10.1039/C0CP01865A</a>.</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="stelzl2014" rules="none">
@@ -101,17 +112,28 @@ doi: <a class="reference external" href="http://dx.doi.org/10.1039/C0CP01865A">1
 <tr><td class="label"><a class="fn-backref" href="#id1">[Stelzl2014]</a></td><td>L. S. Stelz, P. W. Fowler, M. S. P. Sansom, and
 O. Beckstein. Flexible gates generate occluded intermediates in the
 transport cycle of LacY. J Mol Biol, 426:735-751, 2013.
-doi: <a class="reference external" href="http://dx.doi.org/10.1016/j.jmb.2013.10.024">10.1016/j.jmb.2013.10.024</a></td></tr>
+doi: <a class="reference external" href="https://doi.org/10.1016/j.jmb.2013.10.024">10.1016/j.jmb.2013.10.024</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="fowler2015" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Fowler2015]</td><td>P. W. Fowler, M. Orwick-Rydmark, S. Radestock, N. Solcan, P. M. Dijkman,
+J. A. Lyons, J. Kwok, M. Caffrey, A. Watts, L. R. Forrest,
+and S. Newstead. Gating topology of the proton-coupled
+oligopeptide symporters. Structure, 23:290–301,
+2015. doi:<a class="reference external" href="https://doi.org/10.1016/j.str.2014.12.012">10.1016/j.str.2014.12.012</a></td></tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
 </div>
 
 
@@ -145,6 +167,7 @@ doi: <a class="reference external" href="http://dx.doi.org/10.1016/j.jmb.2013.10
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Rotamer libraries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Using RotamerConvolveMD</a></li>
 </ul>
 
