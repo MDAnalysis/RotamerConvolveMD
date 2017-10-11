@@ -1,10 +1,12 @@
+.. -*- coding: utf-8 -*-
 .. RotamerConvolve documentation master file, created by
    sphinx-quickstart on Thu Oct  5 15:44:48 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-RotamerConvolveMD documentation
-===============================
+=================================
+ RotamerConvolveMD documentation
+=================================
 
 This package analyses molecular dynamics trajectories or
 conformational ensembles in terms of spin-label distances as probed in
@@ -16,8 +18,8 @@ rotamer library.
 
 When using this code please cite [Stelzl2014]_ and [Polyhach2011]_.
 
-This package contains the *MTSL rotamer library R1A_298K (2011)* and an *updated MTSL
-rotamer library R1A_298K (2015)* provided by `Gunnar Jeschke`_, which is also published under the GPL with his permission. The updated rotamer library was sent by `Gunnar Jeschke`_ after personal discussion.
+This package contains MTSL :ref:`rotamer-libraries` provided by
+`Gunnar Jeschke`_ (published under the GPL with his permission).
 
 
 If you have questions or problems installing the package then ask on
@@ -38,8 +40,8 @@ Content
 
    installation	      
    background
+   libraries   
    usage
-
    
 References
 ==========
