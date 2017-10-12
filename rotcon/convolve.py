@@ -48,9 +48,9 @@ class RotamerDistancesBase(object):
         """Detect any rotamer that clashes with the protein."""
         # make a KD tree of the protein neighbouring atoms
         proteinNotSite = protein.select_atoms("protein and not (name H* or name [123]H or type H) "
-                                              "and not (resid " + str(site_resid) +
-                                              " or (resid " + str(site_resid-1) + " and (name C or name O)) "
-                                              "or (resid " + str(site_resid+1) + " and (name N or name CA)))")
+                  "and not (resid " + str(site_resid) +
+                  " or (resid " + str(site_resid-1) + " and (name N or name CA or name C or name O)) "
+                  "or (resid " + str(site_resid+1) + " and (name N or name CA or name C or name O)))")
         proteinNotSiteLookup = KDNS.AtomNeighborSearch(proteinNotSite)
 
         rotamerSel = fitted_rotamers.select_atoms("not (name H* or name [123]H or type H)")
