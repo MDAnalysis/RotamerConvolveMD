@@ -246,7 +246,7 @@ References
 
 .. _`10.1039/C0CP01865A`: http://dx.doi.org/10.1039/C0CP01865A
 
-.. [Stelzl2014] L. S. Stelz, P. W. Fowler, M. S. P. Sansom, and
+.. [Stelzl2014] L. S. Stelzl, P. W. Fowler, M. S. P. Sansom, and
    O. Beckstein. Flexible gates generate occluded intermediates in the
    transport cycle of LacY. J Mol Biol, 426:735-751, 2013. 
    doi: `10.1016/j.jmb.2013.10.024`_ 
