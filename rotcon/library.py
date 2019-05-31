@@ -15,6 +15,7 @@ Rotamer library handling
 a rotamer library, represented by a :class:`RotamerLibrary`.
 
 """
+from __future__ import absolute_import, division, print_function
 
 import MDAnalysis
 

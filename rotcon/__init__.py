@@ -193,8 +193,9 @@ References
 
 
 """
+from __future__ import absolute_import, division, print_function
 
-VERSION = 1, 3, 0, "dev"
+VERSION = 1, 3, 0
 
 def get_version_string():
     return ".".join([str(x) for x in VERSION])

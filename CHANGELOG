@@ -11,7 +11,7 @@ The rules for this file:
 
 ------------------------------------------------------------------------------
 
-??/??/2017 katrinr, orbeckst
+05/31/2017 katrinr, orbeckst
   * 1.3.0
     - compatible with MDAnalysis 0.16.2, which is now the required version
       (Issue #20)

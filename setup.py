@@ -4,21 +4,25 @@
 from setuptools import setup, find_packages
 
 if __name__ == '__main__':
-    RELEASE = "1.3.0.dev"
+    RELEASE = "1.3.0"
     with open("README.rst") as summary:
         LONG_DESCRIPTION = summary.read()
-    CLASSIFIERS = [
-        'Development Status :: 4 - Beta',
-        'Environment :: Console',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
-        'Operating System :: POSIX',
-        'Operating System :: MacOS :: MacOS X',
-        'Programming Language :: Python',
-        'Topic :: Scientific/Engineering :: Bio-Informatics',
-        'Topic :: Scientific/Engineering :: Chemistry',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ]
+    CLASSIFIERS=['Development Status :: 6 - Mature',
+                 'Environment :: Console',
+                 'Intended Audience :: Science/Research',
+                 'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+                 'Programming Language :: Python',
+                 'Topic :: Scientific/Engineering',
+                 'Topic :: Scientific/Engineering :: Bio-Informatics',
+                 'Topic :: Scientific/Engineering :: Chemistry',
+                 'Topic :: Software Development :: Libraries :: Python Modules',
+                 'Programming Language :: Python :: 2',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3',
+                 'Programming Language :: Python :: 3.5',
+                 'Programming Language :: Python :: 3.6',
+                 'Programming Language :: Python :: 3.7',
+    ],
     setup(name='RotamerConvolveMD',
           version=RELEASE,
           description='Analysis of spin label distances over structural ensembles',

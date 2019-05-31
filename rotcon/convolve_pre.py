@@ -7,15 +7,13 @@
 #
 # Includes a rotamer library for MTSS at 298 K by Gunnar Jeschke,
 # which is published under the same licence by permission.
-from __future__ import absolute_import
-
+from __future__ import absolute_import, division, print_function
 
 import MDAnalysis
 import MDAnalysis.analysis.distances
 
 import numpy as np
 import os.path
-import matplotlib.pyplot as plt
 
 from . import library
 from .convolve import RotamerDistancesBase
@@ -146,6 +144,8 @@ class RotamerDistances(RotamerDistancesBase):
 
     def plot(self, **kwargs):
         """Load data file and plot"""
+
+        import matplotlib.pyplot as plt
 
         filename = kwargs.pop('filename', None)
         fig = kwargs.pop('fig', None)
