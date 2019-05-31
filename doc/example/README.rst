@@ -1,5 +1,8 @@
 Running the PepTso example
---------------------------
+==========================
+
+DEER
+----
 
 Run the DEER example from this directory::
 
@@ -13,22 +16,26 @@ Run the DEER example from this directory::
         --outputRawDistances "dat/peptso-xrd" \
         --dcdfilename "dcd/peptso-xrd" \
         --dcdfilenameNoClashes "dcd/peptso-xrd" \
-        --useNOelectron \	
+        --useNOelectron \
         --libname "MTSSL 298K 2015" \
         peptso.gro 
 
 Compare the output to the reference::
 
-   diff reference_NO_2015/peptso-xrd-47-330.dat dat/peptso-xrd-47-330.dat
+   diff ../../tests/mtssl_2015/reference_NO_2015/peptso-xrd-47-330.dat  dat/peptso-xrd-47-330.dat
+
+(If there is no difference then no output will be shown --- this is
+the expected result.)   
 
 You can also look at the PDF of the distance histogram and compare to
-reference/peptso-xrd-47-330.pdf.
+``reference/peptso-xrd-47-330.pdf``.
 
-The above test can be run by executing the script ``test_mtssl_2015.sh``.
+The above test can be run by executing the script
+``tests/mtssl_2015/test_mtssl_2015.sh`` from the top directory.
 
 
---------------------------
-
+PRE
+---
 
 Run the PRE example from this directory::
 
@@ -45,11 +52,15 @@ Run the PRE example from this directory::
 
 Compare the output to the reference::
 
-   diff reference_pre_NO_2015/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
+   diff ../../tests/mtssl_2015/reference_pre_NO_2015/peptso-xrd-47-rawDistances.dat dat/peptso-xrd-47-rawDistances.dat
 
+(If there is no difference then no output will be shown --- this is
+the expected result.)   
+   
 You can also look at the PDF of the distance histogram and compare to
-reference_pre/peptso-xrd-47.pdf.
+``reference_pre/peptso-xrd-47.pdf``.
 
-The above test can be run by executing the script ``test_mtssl_pre_2015.sh``.
+The above test can be run by executing the script
+``tests/mtssl_2015/test_mtssl_pre_2015.sh`` from the top directory.
 
   
