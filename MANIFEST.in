@@ -1,4 +1,7 @@
 include README.rst INSTALL.rst LICENSE AUTHORS CHANGELOG
-include setup.py 
+include setup.py
 recursive-include   doc *
+prune               doc/sphinx/build
 graft   rotcon/data
+recursive-include   tests *.sh *.gro *.dat *.pdf
+global-exclude      .DS_Store *~
