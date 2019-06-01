@@ -62,8 +62,8 @@ Either form should automatically download required packages:
 
 .. Note:: The package requires at least MDAnalysis 0.16.2.
 
-Please see http://www.mdanalysis.org for hints if you have problems
+Please see https://www.mdanalysis.org for hints if you have problems
 with the automatic installation of MDAnalysis_.
 
 .. _numpy: http://numpy.scipy.org/
-.. _MDAnalysis: http://www.mdanalysis.org
+.. _MDAnalysis: https://www.mdanalysis.org
