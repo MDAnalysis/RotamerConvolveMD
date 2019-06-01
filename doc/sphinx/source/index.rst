@@ -8,6 +8,9 @@
  RotamerConvolveMD
 ===================
 
+:Release: |release|
+:Date: |today|
+
 This package analyses molecular dynamics trajectories or
 conformational ensembles in terms of spin-label distances as probed in
 double electron-electron resonance (DEER) experiments and spin-label
@@ -24,7 +27,7 @@ This package contains MTSL :ref:`rotamer-libraries` provided by
 
 If you have questions or problems installing the package then ask on
 the MDAnalysis user mailing list:
-http://groups.google.com/group/mdnalysis-discussion
+https://groups.google.com/group/mdnalysis-discussion
 
 Source code is available from
 https://github.com/MDAnalysis/RotamerConvolveMD under the open source
