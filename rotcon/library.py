@@ -17,7 +17,7 @@ a rotamer library, represented by a :class:`RotamerLibrary`.
 """
 from __future__ import absolute_import, division, print_function
 
-import MDAnalysis
+import MDAnalysis, MDAnalysis.lib.util
 
 import logging
 logger = logging.getLogger("MDAnalysis.app")
@@ -57,11 +57,16 @@ LIBRARIES = {
 def find_file(filename, pkglibdir=LIBDIR):
     """Return full path to file *filename*.
 
-    1) If the path exists, return rooted canonical path.
-    2) Try to find the file in the package.
+    1) If the *filename* exists, return rooted canonical path.
+    2) Otherwise, create a path to file in the installed  *pkglibdir*.
+
+    .. note::
+       A file name is *always* returned, even if the file does not
+       exist (because this is how :func:`pkg_resources.resource_filename`
+       works).
     """
     if os.path.exists(filename):
-        return MDAnalysis.core.util.realpath(filename)
+        return MDAnalysis.lib.util.realpath(filename)
     return pkg_resources.resource_filename(__name__, os.path.join(pkglibdir, filename))
 
 
