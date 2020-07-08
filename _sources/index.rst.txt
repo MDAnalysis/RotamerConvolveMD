@@ -35,11 +35,12 @@ GNU General Public License, version 2.
 
 .. _Gunnar Jeschke: http://www.epr.ethz.ch/
 
-Content
-=======
+.. Content (in sidebar)
+.. ====================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
+   :hidden:	      
 
    installation	      
    background
