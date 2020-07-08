@@ -39,6 +39,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx_sitemap',
 ]
 
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -195,7 +196,12 @@ html_favicon = "_static/logos/mdanalysis-logo.ico"
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
 # base URL from which the finished HTML is served.
-html_use_opensearch = 'https://www.mdanalysis.org/MDAnalysisData'
+html_use_opensearch = 'https://www.mdanalysis.org/RotamerConvolveMD'
+
+# sphinx-sitemap config https://github.com/jdillard/sphinx-sitemap
+#html_baseurl = 'https://www.mdanalysis.org/RotamerConvolveMD/'
+site_url = 'https://www.mdanalysis.org/RotamerConvolveMD/'
+html_extra_path = ['robots.txt']
 
 
 # -- Options for HTMLHelp output ------------------------------------------
