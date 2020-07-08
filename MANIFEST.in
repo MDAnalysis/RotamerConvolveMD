@@ -4,4 +4,5 @@ recursive-include   doc *
 prune               doc/sphinx/build
 graft   rotcon/data
 recursive-include   tests *.sh *.gro *.dat *.pdf
-global-exclude      .DS_Store *~
+global-exclude      .DS_Store *~include versioneer.py
+include rotcon/_version.py

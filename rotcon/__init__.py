@@ -210,3 +210,7 @@ def get_license_string():
 def get_citation_string():
     return ("Please cite: LS Stelzl, PW Fowler, MSP Sansom, O Beckstein. " +
             "J Mol Biol 426 (2014), 735-751, doi:10.1016/j.jmb.2013.10.024")
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions

@@ -2,6 +2,7 @@
 # coding=utf-8
 
 from setuptools import setup, find_packages
+import versioneer
 
 if __name__ == '__main__':
     RELEASE = "1.3.0"
@@ -10,7 +11,8 @@ if __name__ == '__main__':
 
 
     setup(name='RotamerConvolveMD',
-          version=RELEASE,
+          version=versioneer.get_version(),
+          cmdclass=versioneer.get_cmdclass(),
           description='Analysis of spin label distances over structural ensembles',
           author='Philip W. Fowler',
           author_email='philip.fowler@ndm.ox.ac.uk',
