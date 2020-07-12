@@ -10,7 +10,11 @@ The rules for this file:
     use tabs but use spaces for formatting
 
 ------------------------------------------------------------------------------
-
+07/11/2020 orbeckst
+  * 1.3.2
+    - fix installation issue that made 1.3.2 fail installation
+      (versioneer.py was not included) (issue #37)
+	
 07/08/2020 orbeckst, lilyminium
   * 1.3.1
     - fix library.find_file (issue #32)
