@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
   <ShortName>RotamerConvolveMD</ShortName>
-  <Description>Search RotamerConvolveMD 1.3.1 documentation</Description>
+  <Description>Search RotamerConvolveMD 1.3.2 documentation</Description>
   <InputEncoding>utf-8</InputEncoding>
   <Url type="text/html" method="get"
        template="https://www.mdanalysis.org/RotamerConvolveMD/search.html?q={searchTerms}"/>
-  <LongName>RotamerConvolveMD 1.3.1 documentation</LongName>
+  <LongName>RotamerConvolveMD 1.3.2 documentation</LongName>
   <Image height="16" width="16" type="image/x-icon">https://www.mdanalysis.org/RotamerConvolveMD/_static/mdanalysis-logo.ico</Image>
   
 </OpenSearchDescription>
